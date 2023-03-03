@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>I wrote this article after methods in the Pop_OS! article did not directly seem to work for me. Link to the article <a href="https://support.system76.com/articles/bootloader/">https://support.system76.com/articles/bootloader</a></p>
+<h2>How to spot the error</h2>
+<p>If you boot your system after an update and Pop_OS auto logins automatically into some default account where all other functions are disabled. You must not be able to open terminal with <code>Super + T</code> and going into TTY1 mode with <code>Ctrl + Alt + F2/F3/F4/F5</code> also does not work</p>
+<h2>Next steps</h2>
+<h3>Boot into recovery mode</h3>
+<p>Press <code>Esc</code> during the boot of your laptop to show the Pop_OS! selector. You must see 4 options there:</p>
+<ol>
+<li>Pop_OS! new kernel</li>
+<li>Pop_OS! old kernel</li>
+<li>Pop_OS! Recovery mode</li>
+<li>Boot into Firmware</li>
+</ol>
+<p>Choose the <code>Recovery mode</code> option and let it start up.</p>
+<h3>Exit the installation option</h3>
+<p>Once the recovery mode has started you must see an option to reinstall the Operating system and start over.</p>
+<p>Click on the option of <code>Continue in Demo mode</code>. This should close the installation window.</p>
+<h3>Mount the OS drive</h3>
+<p>Now mount the pre-installed and broken OS drive so that commands can be executed in it</p>
+<p>Lets see what drives exist</p>
+<pre><code class="language-sh">lsblk
+</code></pre>
+<p>The above command should output the following when:
+<img src="https://res.cloudinary.com/poorna/image/upload/v1648875657/my-blog/Screenshot_from_2022-04-02_09-44-54.png" alt="Image of lsblk output"></p>
+<p>Most often your OS is installed in    <code>nvme0n1</code> . Now lets mount it to <code>/mnt</code> location of the recovery OS</p>
+<pre><code class="language-bash">sudo mount /dev/nvme0n1p3 /mnt
+</code></pre>
+<p>Then lets add the execution files of the broken OS and create links in order to execute the commands</p>
+<pre><code class="language-bash">for i in dev dev/pts proc sys run; do sudo mount -B /$i /mnt/$i; done
+sudo cp -n /etc/resolv.conf /mnt/etc
+</code></pre>
+<p>Now lets get into the old OS terminal to execute the commands</p>
+<pre><code class="language-bash">sudo chroot /mnt
+</code></pre>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1648875652/my-blog/WhatsApp_Image_2022-04-02_at_10.20.06.jpg" alt="Output of above commands"></p>
+<h3>Execute the commands to fix the broken installation</h3>
+<p>Here are the commands to clean up and broken installations</p>
+<pre><code class="language-bash">sudo apt clean
+sudo apt update -m
+sudo dpkg --configure -a
+sudo apt install -f
+sudo apt full-upgrade
+sudo apt autoremove --purge
+</code></pre>
+<p>Now lets fix the UI incase its broken</p>
+<pre><code class="language-bash">sudo apt install --reinstall plymouth gdm3 gnome-shell pop-desktop linux-generic linux-headers-generic
+update-initramfs -c -k all
+</code></pre>
+<h3>Close the terminal and reboot</h3>
+<p>That's it. It should now have fixed your UI and the login screen should work fine!</p>
+
+</body>
+</html>

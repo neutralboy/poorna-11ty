@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>GraphQL has been a revolutionary piece of technology that enables all kinds of developers increase speed of iteration and takes out the guessing game that we were used to querying REST APIs.</p>
+<p>Querying GraphQL layer inside NodeJS is a no brainer. Current technologies like Graphile, Hasura and Supabase enable us to use GraphQL as a standardized layer between our database and our app.</p>
+<h2>First Option: <code>graphql-request</code></h2>
+<p><code>graphql-request</code> is a library by Prisma Labs, completely open source and has around 4.4 thousand stars. Find it <a href="https://github.com/prisma-labs/graphql-request">here</a></p>
+<p>Here's how to use it in typescript.
+Install the library</p>
+<pre><code class="language-bash">npm install graphql-request
+# OR
+yarn add graphql-request
+</code></pre>
+<p>Lets make a client we can use everywhere</p>
+<pre><code class="language-ts">import {GraphQLClient} from &quot;graphql-request&quot;;
+
+const hasuraUrl = &quot;http://localhost:8000&quot;
+const client = new GraphQLClient(hasuraUrl, {
+	headers: {
+		authorization: &quot;Bearer YOUR_HASURA_AUTH_TOKEN&quot;
+	}
+});
+</code></pre>
+<p>Making requests using the client</p>
+<pre><code class="language-ts">const getUserbyId = gql`
+{
+	GetUserByID(id: $Int!){
+		user(where: {
+			_id: { _eq: $id }
+		}){
+			id
+			fullName
+			email
+		}
+	}
+}
+`;
+
+const req = await client.request(getUserbyId, { id: 3 });
+console.log(req);
+// { user: { id: 3, fullName: &quot;John Doe&quot;, email: &quot;hello@example.dev&quot; } } 
+ 
+</code></pre>
+<p>And that's it, its super simple and super straight forward, nothing complex to configure</p>
+<h2>Second option: Make your own fetch based GraphQL client</h2>
+<p>NodeJS does not natively have fetch unlike the browsers which means that we need to use a secondary client to achieve the same functionality.</p>
+<p>First, lets install <code>cross-fetch</code>, its a library that provides the same features to NodeJS</p>
+<pre><code class="language-sh">npm install cross-fetch
+#OR
+yarn add cross-fetch
+</code></pre>
+<p>Now lets create our custom client function</p>
+<pre><code class="language-ts">import fetch from &quot;cross-fetch&quot;;
+
+interface IGC{
+	[key: string]: any
+};
+const graphqlClient = async (gqlDocument: string, vars: IGC) =&gt; {
+	const res = await fetch(&quot;HASURA_URL&quot;, {
+		method: &quot;POST&quot;,
+		headers: {
+			&quot;content-type&quot;: &quot;application/json&quot;
+		},
+		body: JSON.stringify({
+			query: gqlDocument,
+			variables: vars
+		})
+	});
+	const jsonRes = await res.json();
+	return jsonRes.data;
+};
+</code></pre>
+<p>Lets use that function to query the endpoint</p>
+<pre><code class="language-ts">const getUserbyId = gql`
+{
+	GetUserByID(id: $Int!){
+		user(where: {
+			_id: { _eq: $id }
+		}){
+			id
+			fullName
+			email
+		}
+	}
+}
+`;
+const userById = await graphqlClient(getUserbyId, { id: 3 });
+console.log(userById);
+// { user: { id: 3, fullName: &quot;John Doe&quot;, email: &quot;hello@example.dev&quot; } } 
+</code></pre>
+<p>Its a little more complex than using a built in module but that also means that you get granular control over the error handling the requests you make with <code>fetch</code>.</p>
+
+</body>
+</html>

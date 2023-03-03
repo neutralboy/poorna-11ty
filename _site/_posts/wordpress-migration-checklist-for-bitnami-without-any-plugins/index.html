@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>This checklist has been written by me since I keep running into the same scenario over and over again during migrations where I forget a simple step and have to repeat everything again.</p>
+<p>Think of this tutorial on how to perform migration of an existing Wordpress instance. This tutorial assumes you have knowledge of basic linux commands.</p>
+<p>I will be using a <a href="https://aws.amazon.com/marketplace/pp/prodview-bzstv3wbn5wkq?sr=0-1&amp;ref_=beagle&amp;applicationId=AWSMPContessa">Bitnami Wordpress installation</a> on AWS EC2 to demonstrate.
+Login to your Wordpress instance and find the installation path of wordpress.</p>
+<p><img src="https://poorna-657a.s3.ap-south-1.amazonaws.com/Screenshot+from+2022-10-18+18-01-15.png" alt="Bitnami Wordpress"></p>
+<p>My installation is located at <code>/home/&lt;username&gt;/stack/wordpress</code> .</p>
+<blockquote>
+<p>Wordpress stores its data in 3 main places:</p>
+<ol>
+<li><code>/wp-content/</code> folder where all the plugins and theme files are located</li>
+<li>Database (usually mysql, mariadb or postgres) where data on authentication, users and website content</li>
+<li><code>wp-config.php</code> where config details such as website URL and database credentials are located</li>
+</ol>
+</blockquote>
+<p>Let's zip up the <code>/wp-content/</code> folder so that it can be downloaded onto my computer</p>
+<pre><code class="language-bash">$~ zip -r ./wp-content wp-content.zip
+</code></pre>
+<p>Now lets connect to the database and back it up
+With the database credentials lets dump the SQL into a file</p>
+<pre><code class="language-shell">$~ mysqldump -u &lt;username&gt; -p &lt;database_name&gt; &gt; backup.sql
+</code></pre>
+<p>Now lets download the backed up files onto our system using scp</p>
+<pre><code class="language-shell">$~ scp &lt;username&gt;@&lt;ip&gt;:/home/&lt;username&gt;/stack/wordpress/wp-content.zip ./
+$~ scp &lt;username&gt;@&lt;ip&gt;:/home/&lt;username&gt;/stack/wordpress/wp-config.php ./
+$~ scp &lt;username&gt;@&lt;ip&gt;:/home/&lt;username&gt;/stack/wordpress/backup.sql ./
+</code></pre>
+<p>While you're at it. Do not forget to check the version of <code>php-fpm</code> running since you cannot migrate from one version of PHP to another.</p>
+<p><img src="https://poorna-657a.s3.ap-south-1.amazonaws.com/Screenshot+from+2022-10-18+18-44-04.png" alt="PHP Version check"></p>
+<p>This should lead to you have all the three important files</p>
+<ol>
+<li><code>wp-content.zip</code></li>
+<li><code>wp-config.php</code></li>
+<li><code>backup.sql</code></li>
+</ol>
+<p>Now spin up another instance of wordpress while making sure to match the same PHP version.</p>
+<p><img src="https://poorna-657a.s3.ap-south-1.amazonaws.com/Screenshot+2022-10-18+at+19-02-49+AWS+Marketplace+WordPress+Certified+by+Bitnami+and+Automattic.png" alt="New bitnami Installtion"></p>
+<p>SSH into the newly logged in instance and delete the following files to make sure they don't overlap.</p>
+<ol>
+<li><code>/home/&lt;username&gt;/stack/wordpress/wp-content</code></li>
+<li><code>/home/&lt;username&gt;/stack/wordpress/wp-config.php</code></li>
+</ol>
+<p>Now lets upload the same file onto the server</p>
+<pre><code class="language-shell">$~ scp ./wp-content.zip &lt;username&gt;@&lt;ip&gt;:/home/&lt;username&gt;/stack/wordpress/wp-content.zip
+$~ scp ./wp-config.php &lt;username&gt;@&lt;ip&gt;:/home/&lt;username&gt;/stack/wordpress/wp-config.php
+$~ scp ./backup.sql &lt;username&gt;@&lt;ip&gt;:/home/&lt;username&gt;/stack/wordpress/backup.sql
+</code></pre>
+<p>Unzip the <code>wp-content.zip</code> folder</p>
+<pre><code class="language-bash">$~ unzip ./wp-content.zip
+</code></pre>
+<p>Replace the database credentials in the <code>wp-config.php</code></p>
+<pre><code class="language-php">/** The name of the database for WordPress */
+define( 'DB_NAME', 'bitnami_wordpress' );
+/** Database username */
+define( 'DB_USER', '&lt;username&gt;' );
+/** Database password */
+define( 'DB_PASSWORD', '&lt;password&gt;' );
+/** Database hostname */
+define( 'DB_HOST', '127.0.0.1:3306' );
+</code></pre>
+<p>Restore the sql backup back into the database</p>
+<pre><code class="language-bash">mysql -u &lt;username&gt; -p bitnami_wordpress &lt; backup.sql
+</code></pre>
+<p>Your wordpress deployment should be ready and working.</p>
+
+</body>
+</html>

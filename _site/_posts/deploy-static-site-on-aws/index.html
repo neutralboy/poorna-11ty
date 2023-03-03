@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p>This guide is for advanced users with intricate knowledge of AWS and its services. If you're new to static sites you can try out <a href="https://www.netlify.com/">Netlify</a> they're a super simple way to deploy static sites. If you're asking why do it at all, its for bonus cool points.</p>
+</blockquote>
+<h1>How do we go about it ?</h1>
+<p>Here are the steps of how to deploy it:</p>
+<ol>
+<li>Git your code</li>
+<li>Using CodePipeline Trigger to add code to S3</li>
+<li>Serve the contents of S3 over Cloudfront</li>
+</ol>
+<hr>
+<p>Feel free to skip ahead to anything you've already done.</p>
+<h1>Git</h1>
+<p>You can use any of the following services to maintain your code</p>
+<ul>
+<li><a href="https://bitbucket.org/product/">Bitbucket</a></li>
+<li><a href="https://github.com/">Github</a></li>
+<li><a href="https://aws.amazon.com/codecommit/">AWS CodeCommit</a></li>
+</ul>
+<p>Once you have all your code commited and ready, move on to the next step.</p>
+<hr>
+<h1>Using CodePipeline Trigger</h1>
+<blockquote>
+<p>AWS CodePipeline is a tool that looks for commits and pulls made to a git repository and triggers an action on the code. Action may be postprocessing of data, building container images, exporting static files and so on.</p>
+</blockquote>
+<ol>
+<li>
+<h3>Go to the CodePipeline section and use the <code>Create pipeline</code> button.</h3>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612627201/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools.png" alt="Create Pipeline"></p>
+</li>
+<li>
+<h3>Name your pipeline and use the New Service Role, it should give you enough permissions to make it work.</h3>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612627422/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools_2.png" alt="Name and create role">
+Click on next</p>
+</li>
+<li>
+<h3>Now choose the source of code</h3>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612627533/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools_3.png" alt="Source of code">
+One you choose your source, AWS will ask you to connect your repo to the pipeline. Provide all necessary permissions.
+Click Next.</p>
+</li>
+<li>
+<h3>Skip the buid Stage</h3>
+<p>Button is located at the bottom of the page
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612627764/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools_4.png" alt="Skip the build stage"></p>
+<blockquote>
+<p>Skipping build stage implies that you already have deployable <code>index.html</code> in your git repo. If you do not consider using a build stage.</p>
+</blockquote>
+</li>
+<li>
+<h3>Choose AWS S3 as your deploy stage</h3>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1612627954/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools_5.png" alt="AWS S3 as deploy stage">
+Choose any of your S3 buckets</p>
+<blockquote>
+<p>Check the Extract file before deploy option
+<img src="https://res.cloudinary.com/poorna/image/upload/v1612628101/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools_6.png" alt="Extract before deploy"></p>
+</blockquote>
+</li>
+<li>
+<h3>Review and create your pipeline</h3>
+<h4>Now commit a change to your code and check if its being executed.</h4>
+<p>Click on the pipeline you just created and view its history. If the trigger has been setup correctly, here's what you'll see.</p>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612628312/my-blog/Screenshot_2021-02-06_CodePipeline_-_AWS_Developer_Tools_7.png" alt="Successful Trigger"></p>
+</li>
+</ol>
+<hr>
+<h1>Setting up CloudFront</h1>
+<blockquote>
+<p>Cloudfront is AWS CDN service that can serve objects from globally cached edge nodes. It can be used to serve images, css, html, php and all static assets. Video Livestreaming is also possible.</p>
+</blockquote>
+<ol>
+<li>
+<h3>Create a new distrubution</h3>
+Navigate to the AWS Cloudfront service and create a new distrubution.
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612628717/my-blog/Screenshot_2021-02-06_AWS_CloudFront_Management_Console.png" alt="Create a new distrubution"></li>
+<li>
+<h3>Choose the S3 bucket you want to serve from.</h3>
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612631494/my-blog/Screenshot_2021-02-06_AWS_CloudFront_Management_Console_1.png" alt="Choose S3 bucket">
+<blockquote>
+<p>Use the <em>Origin Path</em> option to make sure you serve the right files. Here's an example of what it looks like:
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612631494/my-blog/Screenshot_2021-02-06_AWS_CloudFront_Management_Console_1.png" alt="Origin Path option"></p>
+</blockquote>
+</li>
+<li>
+<h3>Configure a few more options</h3>
+Leave most options to their defaults, here are a few I recommend changing:
+<ul>
+<li>
+<h4>Compress Objects Automatically: YES</h4>
+</li>
+<li>
+<h4>Alternate Domain Names: &lt; custom domain &gt;</h4>
+<blockquote>
+<p>If you want a custom domain, AWS automatically provisions a SSL certificate.</p>
+</blockquote>
+</li>
+<li>
+<h4>Custom SSL Certificate</h4>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>Click Deploy and you are done.</h2>
+<p>Now you must have a cloudfront domain deployed at your custom domain</p>
+<p>Here's how the Cloufront Distrubution looks once its done!
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1612632096/my-blog/Screenshot_2021-02-06_AWS_CloudFront_Management_Console_3.png" alt="Completed"></p>
+<hr>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1612632204/my-blog/tenor.gif" alt="Celebration"></p>
+
+</body>
+</html>

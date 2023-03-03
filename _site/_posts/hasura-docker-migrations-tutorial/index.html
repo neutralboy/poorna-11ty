@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p><strong>How do we use Hasura migrations Docker image and setup migrations to be used in production ?</strong>
+This is a question I found asking myself ever so often when using Hasura in my development toolchain.</p>
+</blockquote>
+<h4>To start off with the positives:</h4>
+<p>Hasura is a great tool built battle ready, its exceptionally fast, super easy to setup and use. The development experience makes use of a database interface really easy for everyone alike - amateurs to advanced.</p>
+<h4>My issue with Hasura's migrations docs</h4>
+<p>Hasura all-in-all has great documentation, but their docs on using migrations with Docker is a little lacking.
+Docs on Docker migrations are here: https://hasura.io/docs/latest/migrations-metadata-seeds/auto-apply-migrations/</p>
+<p>So here I manage to outline the whole process in one single flow:</p>
+<h3>Setup a project with Hasura in it</h3>
+<h4>Get started on the database</h4>
+<p>Lets configure a development environment to use Hasura
+<code>development.yml</code></p>
+<pre><code class="language-yaml">version: '3'
+	services:
+		db:
+			image: postgres:14-alpine
+			ports:
+			  - 5433:5432
+			volumes:
+			  - ./pgdata:/var/lib/postgresql/data
+			environment:
+			  POSTGRES_USERNAME: abcd
+			  POSTGRES_PASSWORD: abcd
+</code></pre>
+<p>Lets just setup a basic database using  <code>postgres-alpine</code>  for our development</p>
+<h4>Adding Hasura to the mix</h4>
+<p>Hasura in development need not be added using Docker. Although the Docker image works the same way as the CLI console does but it <strong>cannot</strong> track database changes and create migration files.
+Install the Hasura CLI: https://hasura.io/docs/latest/hasura-cli/install-hasura-cli/</p>
+<p>Easiest way to do it is</p>
+<pre><code class="language-bash">npm install --global hasura-cli@2.8.0
+</code></pre>
+<h4>Start the Hasura Console</h4>
+<p>Create a new folder for Hasura config and migrations</p>
+<pre><code class="language-bash">mkdir hasura
+cd hasura
+</code></pre>
+<p>Now start Hasura console</p>
+<pre><code class="language-bash">hasura console
+</code></pre>
+<h3>Now edit the database</h3>
+<p>Now use the Hasura console started at  <code>http://localhost:8080</code>  to make edits to the database.</p>
+<pre><code class="language-sh"># Your expected Postgres URL will be
+POSTGRES_URL: postgres//abcd:abcd@localhost:5432/test
+</code></pre>
+<p>Add a few tables and create indexes
+You should see the migrations files with inside
+<code>hasura/migrations/163677</code>  there are two distinct files that are created.
+<code>up.sql</code>  and <code>down.sql</code> these files are to apply and remove the migration.</p>
+<h3>Now lets deploy this to production using Docker</h3>
+<p>Hasura provides us with a special image that auto applies migrations.
+Here's the <code>production.yml</code></p>
+<pre><code class="language-yml">version: '3'
+services:
+  db:
+    image: postgres:14-alpine
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: ndhm
+
+  hasura:
+  # Note the special image witht he cli-migrations tag
+    image: hasura/graphql-engine:v2.8.0.cli-migrations-v3
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://abcd:abcd@db:5432/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://abcd:abcd@db:5432/test
+      HASURA_GRAPHQL_DEV_MODE: 'true'
+      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
+      HASURA_GRAPHQL_METADATA_DIR: /hasura-metadata
+    restart: on-failure
+    volumes:
+      - ./hasura/migrations:/hasura-migrations
+      - ./hasura/metadata:/hasura-metadata
+</code></pre>
+<p>We specify the location of migration files as an  <code>env</code> variable. This will auto apply the migrations to the server and the linked database.</p>
+<h3>Thats it</h3>
+<p>And thats the simplest way to setup Hasura migrations from development to production</p>
+
+</body>
+</html>

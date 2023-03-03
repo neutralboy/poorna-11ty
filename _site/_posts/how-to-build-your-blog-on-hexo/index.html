@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p><strong>What is Hexo?</strong>
+Hexo is a static blog generator akin to jekyll, uses the latest JS standards. It outputs the site in the classic HTML, CSS and JS after post-processing, which means that you can deploy it on a CDN of your choice.</p>
+</blockquote>
+<h1>Step 1: Install Hexo</h1>
+<p>Hexo is sourced from npm so make sure npm in <a href="https://docs.npmjs.com/cli/v6/configuring-npm/install">installed</a> first.
+Then install Hexo:</p>
+<pre><code>npm install -g hexo-cli
+</code></pre>
+<p><code>-g</code> tag makes sure its installed globally on your system, hence also giving us access to the hexo commands from any directory.</p>
+<h1>Step 2: Create your Hexo Project</h1>
+<pre><code>hexo init hexo-project
+</code></pre>
+<p>Then,</p>
+<pre><code>cd hexo-project
+npm install
+git init
+git add .
+git commit -m &quot;first commit&quot;
+</code></pre>
+<p><code>npm install</code> installs all the required modules in the <code>node_modules/</code> required for development.
+<code>git init</code> initializes an empty git project.
+Then add and commit all the files that have been created.</p>
+<h1>Step 3: Install a theme</h1>
+<p>Now lets add some style to our new blog, I'm using the cuppertino theme, you can find it <a href="https://github.com/MrWillCom/hexo-theme-cupertino">here</a> on Github.
+In the root of your project add the theme as a submodule:</p>
+<pre><code>git submodule add https://github.com/MrWillCom/hexo-theme-cupertino.git themes/cuppertino
+</code></pre>
+<p>This should give you the theme files in the <code>themes/</code> directory.
+Now edit the the <code>_config.yml</code> in the <code>themes/cuppertino</code> folder.
+Here's what I changed:</p>
+<pre><code>...
+# navigation config
+nav:
+  # the title displays in the upper left corner which won't change
+  title: Poorna.
+  # the items displays in the upper right corner
+  items:
+    # these items will display as a link
+    # Archives: /archives
+    # Friends: /friends
+    Projects: /projects
+    About: /about
+    # these will be automatically be an icon
+    # GitHub: https://github.com/MrWillCom
+    # CodePen: https://codepen.io/mrwillcom
+    # Patreon: https://www.patreon.com/MrWillCom
+...
+</code></pre>
+<p>You can play around and figure out how to customize the nav, footer and everything else, its extremely simple.
+Now change the global settings of the blog in the main <code>_config.yml</code>. Here's mine:</p>
+<pre><code># Site
+title: 'Poorna.'
+subtitle: ''
+description: The complete reboot of Cloud, Devops and Analytics.
+keywords:
+author: Poornachandra
+language: en
+timezone: ''
+</code></pre>
+<h1>Step 4: Create your first post</h1>
+<p>Lets go ahead and write our first post.</p>
+<pre><code>hexo new post hello-world
+</code></pre>
+<p>The above command should generate a file named <code>hello-world.md</code> under <code>source/_posts</code>.
+Then run the hexo build command:</p>
+<pre><code>npm run build
+</code></pre>
+<p>Now lets start a live server to preview the changes we make to the file.</p>
+<pre><code>npm run server
+</code></pre>
+<p>This should spin up a server at <code>http://localhost:4000/</code>. Open it in the browser.</p>
+<h1>Step 5: Add some content</h1>
+<p>Open the <code>hello-world.md</code>
+Replace the contents to the following</p>
+<pre><code class="language-markdown">---
+title: Hello World
+---
+Hello world. This is my first post on Hexo.
+
+&lt;blockquote class=&quot;imgur-embed-pub&quot; lang=&quot;en&quot; data-id=&quot;a/pDVdg&quot; data-context=&quot;false&quot; &gt;&lt;a href=&quot;//imgur.com/a/pDVdg&quot;&gt;Significant amount of points away from next imgur rank. Here&amp;#39;s my favorite cat gif for your caturday&lt;/a&gt;&lt;/blockquote&gt;&lt;script async src=&quot;//s.imgur.com/min/embed.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Now lets commit the changes:</p>
+<pre><code>git add .
+git commit -m &quot;deploy post&quot;
+</code></pre>
+<blockquote>
+<p>Follow the next tutorial on <a href="/2021/02/06/deploy-static-site-on-aws/">how to deploy the blog on AWS S3 + Cloudfront</a></p>
+</blockquote>
+
+</body>
+</html>

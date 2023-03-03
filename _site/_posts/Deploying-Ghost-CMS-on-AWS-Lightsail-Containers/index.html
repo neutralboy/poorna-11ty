@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<h2><strong>Why deploy Ghost on Lightsail Container Service ?</strong></h2>
+</blockquote>
+<p>Dockerization of any software comes with one huge advantage, lesser management overheads. The software is packed with minimal moving parts that are absolutely essential to run the software. Hence reducing the risk of failure.
+Imagine not having to update any software at all, now scale that up with a software architecture with 10s of different individual software components. The advantage containerization offers over complex software development is insane.</p>
+<p>Let's get started:</p>
+<h1>Login to AWS and head to the AWS Lighsail container service page</h1>
+<p>Click on the <strong>Create Container Service</strong> button
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1614882069/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Lightsail.png" alt="Lightsail Container Page"></p>
+<h1>Choose your Pricing Plan</h1>
+<p>We'll just use the cheapest plan available at $7 per month.
+<img src="https://res.cloudinary.com/poorna/image/upload/v1614882069/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Create_a_container_service_Lightsail.png" alt="Choose Pricing Plan"></p>
+<h1>Write the custom deployment configuration</h1>
+<p>If you've ever worked with <code>docker-compose.yml</code> or <code>kub.yml</code> files, this must be quite familiar to you.</p>
+<pre><code>CONTAINER_NAME: ghost-cms # Name of container
+IMAGE: registry.hub.docker.com/library/ghost # URL of ghost image
+</code></pre>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1614882069/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Create_a_container_service_Lightsail_1.png" alt="Configuration"></p>
+<h1>Add Environment and Port configuration</h1>
+<pre><code>url: http://your-site.com
+port: 2368 # Choose HTTP
+</code></pre>
+<p>AWS will generate and serve a unique URL through HTTPS
+<img src="https://res.cloudinary.com/poorna/image/upload/v1614882068/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Create_a_container_service_Lightsail_2.png" alt="Config2"></p>
+<h1>Choose your Public Endpoint</h1>
+<p>Don't forget to choose your public endpoint, this determines which container will be exposed to the public (Doesn't matter for us since we're running only 1 container)
+<img src="https://res.cloudinary.com/poorna/image/upload/v1614882067/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Create_a_container_service_Lightsail_3.png" alt="Public Endpoint"></p>
+<h1>Give your service a cool name!</h1>
+<p>The name you give the service determines the uniqe URL generated
+<img src="https://res.cloudinary.com/poorna/image/upload/v1614882067/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Create_a_container_service_Lightsail_4.png" alt="Unique Name"></p>
+<h1>Create the Service</h1>
+<hr>
+<h1>After a few minutes of waiting, your service must be ready/</h1>
+<p>Here's how the dashboard looks
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1614882068/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Lightsail_1.png" alt="Container Dashboard"></p>
+<h1>Click on the URL and you'll see your site running. :)</h1>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1614882068/my-blog/ghost-on-lightsail-container/Screenshot_2021-03-04_Ghost.png" alt="Functioning Site"></p>
+<p>To login to the admin panel and setup your site, you can login to the url <code>your-site.com/ghost/</code></p>
+<p><img src="https://media.giphy.com/media/Sk5uipPXyBjfW/source.gif" alt="Celebrate"></p>
+
+</body>
+</html>

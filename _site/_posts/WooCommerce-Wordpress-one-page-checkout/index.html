@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p>Wordpress + WooComemrce is a great combination to use for setting up a store to sell digital products. Though it requires some technical knowledge, overall it results in savings.</p>
+</blockquote>
+<h2>My tech stack</h2>
+<ol>
+<li>Wordpress setup on <a href="https://aws.amazon.com/lightsail/projects/wordpress/">AWS Lightsail</a> - overall costs 3.5$ a month</li>
+</ol>
+<h1>1. Add WooCommerce</h1>
+<p>Go to <strong>Plugins &gt; Add new</strong> and search for Woocommerce
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613836975/my-blog/Screenshot_2021-02-20_Add_Plugins_Personal_Branding_Blueprint_WordPress.png" alt="Woocommerce plugin"></p>
+<p>Download and activate the plugin</p>
+<h1>2. Setup WooCommerce</h1>
+<p>Navigate to <strong>Woocommerce &gt; Settings</strong>
+Then select the <strong>Products Tab</strong></p>
+<blockquote>
+<p>Disable the two checkboxes</p>
+</blockquote>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1613842787/my-blog/Screenshot_2021-02-20_WooCommerce_settings_Personal_Branding_Blueprint_WordPress.png" alt="Disable redirect to cart"></p>
+<h1>3. Modify WooCommerce Product settings</h1>
+<p>Make sure the checkbox Sold Individually is checked under <strong>Product Data &gt; Inventory</strong>
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613843765/my-blog/Screenshot_2021-02-20_Edit_product_Personal_Branding_Blueprint_WordPress.png" alt="Sold Individually"></p>
+<h1>4. Locate the checkout page and copy the link</h1>
+<p>Find the checkout page and open it
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613845068/my-blog/Screenshot_2021-02-20_Pages_Personal_Branding_Blueprint_WordPress.png" alt="Checkout page"></p>
+<p>Now on the right side of the page, copy the permalink
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613845682/my-blog/Screenshot_2021-02-20_Edit_Page_Personal_Branding_Blueprint_WordPress.png" alt="permalink"></p>
+<p>My perma link for checkout page is</p>
+<pre><code>http://35.154.187.243/?page_id=283
+</code></pre>
+<p>Navigate to the products menu on the WP dashboard and click on it
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613846701/my-blog/Screenshot_from_2021-02-21_00-14-50.png" alt="Cart link">
+My product ID is <strong>300</strong></p>
+<p>Now add the URL params to the cart URL this way</p>
+<pre><code>http://35.154.187.243/?page_id=283&amp;add-to-cart= &lt;product ID&gt; &amp;quantity=1
+
+Here's mine:
+http://35.154.187.243/?page_id=283&amp;add-to-cart=300&amp;quantity=1
+</code></pre>
+<h1>5. Now use the link we just created and add it to any button as a hyperlink</h1>
+
+</body>
+</html>

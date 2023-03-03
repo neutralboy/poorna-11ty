@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p><a href="https://akaunting.com/">Akaunting</a> is an open-source accounting software. They offer self hosted and managed platform to manage all your finances.</p>
+</blockquote>
+<p>Here's a preview of accounting:
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,q_auto,w_1300/v1622727459/my-blog/Screenshot_2021-06-03_at_19-05-03_Dashboard_-_Accel_Samurai.png" alt="Perview of Akaunting"></p>
+<h3>Lets assume you have setup a machine with docker and docker-compose.</h3>
+<p>Follow through on the commands below and your own self hosted finance at the end of it.
+Though Akauntings docker docs are comprehensive, they dont have a documentation on making it secure</p>
+<pre><code>git clone https://github.com/akaunting/docker
+cd docker
+cp env/db.env.example env/db.env
+cp env/run.env.example env/run.env
+</code></pre>
+<h3>Now open the env/run.env file and set the parameters right.</h3>
+<p>Here's how the file should look:</p>
+<pre><code class="language-env"># You should change this to match your reverse proxy DNS name and protocol
+APP_URL=https://&lt;your-domain.com&gt; # No need of a trailing slash
+LOCALE=en-US
+
+# Don't change this unless you rename your database container or use rootless podman, in case of using rootless podman you should set it to 127.0.0.1 (NOT localhost)
+DB_HOST=akaunting-db
+
+# Change these to match env/db.env
+DB_DATABASE=akaunting
+DB_USERNAME=admin
+DB_PASSWORD=akaunting_password
+
+# You should change this to a random string of three numbers or letters followed by an underscore
+DB_PREFIX=asd_
+
+# These define the first company to exist on this instance. They are only used during setup.
+COMPANY_NAME=&lt;Your company name&gt;
+COMPANY_EMAIL=&lt;Your company email&gt;
+
+# This will be the first administrative user created on setup.
+ADMIN_EMAIL=&lt;Admin email&gt;
+ADMIN_PASSWORD=&lt;Admin password&gt;
+</code></pre>
+<p>Save and close the file.</p>
+<h3>Make changes to docker-compose.yml</h3>
+<p>Edit the existing <code>docker-compose.yml</code> to add the caddy service to it.</p>
+<blockquote>
+<p><a href="https://caddyserver.com/">Caddy</a> is a highly performant reverse proxy server written in GoLang. Caddy takes care of reverse proxy and adding a wild card certificate to the domain.</p>
+</blockquote>
+<pre><code class="language-yaml">version: '3.7'
+services:
+  akaunting:
+    container_name: akaunting
+    image: docker.io/akaunting/akaunting:latest
+    build:
+      context: .
+    ports:
+      - 8080:80
+    volumes:
+      - akaunting-data:/var/www/html/storage
+      - akaunting-modules:/var/www/html/modules
+    restart: unless-stopped
+    env_file:
+      - env/run.env
+    environment:
+      - AKAUNTING_SETUP
+    depends_on:
+      - akaunting-db
+    networks:
+      - app-network
+    
+
+  akaunting-db:
+    container_name: akaunting-db
+    image: mariadb
+    volumes:
+      - akaunting-db:/var/lib/mysql
+    restart: unless-stopped
+    env_file:
+      - env/db.env
+    networks:
+      - app-network
+
+  akaunting-update:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup akaunting akaunting-db
+
+  caddy:
+    image: caddy:2.3.0-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - app-network
+    depends_on: 
+      - akaunting
+
+volumes:
+  akaunting-data:
+  akaunting-modules:
+  akaunting-db:
+
+
+networks:
+    app-network:
+      driver: bridge
+</code></pre>
+<h3>Add the Caddyfile in the same location as docker-compose.yml</h3>
+<p>Create a file called Caddyfile (no file extension name!) and add the following into it.</p>
+<blockquote>
+<p>Caddyfile is how Caddy takes in configuration akin to the ngnix/sites-enabled files</p>
+</blockquote>
+<pre><code class="language-caddy">&lt;your-domain.com&gt; {
+    encode gzip
+    reverse_proxy akaunting:80
+}
+</code></pre>
+<p>Save and exit the file.</p>
+<h3>Start the setup</h3>
+<p>Now execute the following commands:</p>
+<pre><code>AKAUNTING_SETUP=true docker-compose up -d
+</code></pre>
+<p>In your browser open up &lt;your-domain.com&gt; and finish the Akaunting setup</p>
+<blockquote>
+<h4>Akaunting API key isnt necessary to complete the install, you can skip the step</h4>
+</blockquote>
+<h3>Once setup is completed</h3>
+<p>Start the container again without the env variable that is required for setup.</p>
+<pre><code class="language-bash">docker-compose down -v
+docker-compose up -d
+</code></pre>
+<h3>Sweet Perk: Auto-updating your Akaunting installation</h3>
+<p>Included in the docker-compose.yml file is a container called watchtower which takes care of the auto updating</p>
+
+</body>
+</html>

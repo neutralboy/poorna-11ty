@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p><a href="https://www.elastic.co/kibana/">Kibana</a> is a free and open user interface that lets you visualize your Elasticsearch data and navigate the Elastic Stack. Do anything from tracking query load to understanding the way requests flow through your apps.</p>
+</blockquote>
+<p>Though it is a great tool to have in your arsenal, its not easy to set it up with docker.
+Here's a ridiculously simple guide to getting kibana on docker</p>
+<h2>Docker Compose configuration to enable kibana:</h2>
+<p>This configuration can be used without a seperate kibana configuration file
+<code>docker-compose.yml</code></p>
+<pre><code class="language-yaml">...
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.0
+    container_name: kibana_es
+    environment:
+      - SERVER_NAME=kibana.yourdomain.com # add a unique name to your kibana deployment
+      - ELASTICSEARCH_HOSTS=http://elastisearch:9200 # your elasitcsearch deployment url - Assuming that you do not have elasticsearch authentication setup
+    ports:
+      - 5601:5601
+    depends_on:
+      - elastisearch
+    networks:
+      - app-network
+...
+</code></pre>
+<p>Now kibana must be accessible at <a href="http://localhost:5601/">http://localhost:5601/</a></p>
+<h2>Adding <code>kibana.yml</code> for advanced configuration</h2>
+<ol>
+<li>Remove environemnt configuration and add kibana.yml volume support in <code>docker-compose.yml</code></li>
+</ol>
+<pre><code class="language-yaml">...
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.0
+    container_name: kibana_es
+    ports:
+      - 5601:5601
+    depends_on:
+      - elastisearch
+    networks:
+      - app-network
+    volumes:
+      - ./path/to/kibana.yml:/usr/share/kibana/config/kibana.yml
+...
+</code></pre>
+<ol start="2">
+<li>Define <code>kibana.yml</code></li>
+</ol>
+<pre><code>elasticsearch.username: &quot;elastic&quot; # If you've setup authentication for elasticsearch
+elasticsearch.password: &quot;elasticsearchpassword&quot; # Elasticsearch password
+elasticsearch.hosts: [&quot;http://elastisearch:9200&quot;] # Your Elasticsearch URL
+server.ssl.enabled: false # Disable SSL
+server.host: &quot;0.0.0.0&quot; # To allow for connections from outside the docker container
+server.name: &quot;My Kibana server&quot; # Name the server
+</code></pre>
+<p>Now restart your docker-compose and here's what you should see
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1631025164/my-blog/Screenshot_2021-09-07_at_19-59-52_Elastic.png" alt="Login for elasticsearch"></p>
+<p>Now login using the username and password you used to setup ElasticSearch.</p>
+
+</body>
+</html>

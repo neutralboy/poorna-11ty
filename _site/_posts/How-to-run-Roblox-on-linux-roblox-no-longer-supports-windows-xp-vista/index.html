@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>On running the Roblox official exe file on Wine results in the following error.</h3>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1643042252/my-blog/Screenshot_2022-01-24_22-06-21.png" alt="Please note that for security reasons, Roblox no longer supports Windows XP or Vista. To keep playing Roblox, please upgrade to Windows 7 or above">
+Please note that for security reasons, Roblox no longer supports Windows XP or Vista. To keep playing Roblox, please upgrade to Windows 7 or above</p>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_800/v1643042253/my-blog/Screenshot_2022-01-24_22-05-05.png" alt="Total Wine error"></p>
+<hr>
+<p>The most common fix that is prescribed is to use <a href="https://brinkervii.gitlab.io/grapejuice/">GrapeJuice</a>. Although Grapejuice works great for setting up Roblox Studio on linux, it does not work with Roblox Player. The same error mentioned above returns with Grapejuice version as well. This article is written in Jaunary 2022 so things might change by the time this article is read.</p>
+<hr>
+<h2>Using the Roblox Linux Wrapper</h2>
+<p><a href="https://github.com/roblox-linux-wrapper/roblox-linux-wrapper"><img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_600/v1643042419/my-blog/roblox-linux-wrapper.png" alt="Roblox Linux Wrapper Github Page"></a></p>
+<p>Roblox Linux Wrapper is a bunch of Shell scripts that make running Roblox Player a breeze.</p>
+<h3>How to set it up</h3>
+<ol>
+<li>Install WineHQ. Recommended is Wine Staging, but I tested in on Wine Stable and it worked just fine. You can get the details <a href="https://wiki.winehq.org/Ubuntu">here</a></li>
+<li>Get the source code of the wrapper<pre><code class="language-bash">    git clone https://github.com/roblox-linux-wrapper/roblox-linux-wrapper.git
+</code></pre>
+</li>
+<li>Navigate into the folder and the execute script named <strong>rlw</strong><pre><code class="language-bash">    ./rlw
+</code></pre>
+This should setup all the necessary files required for Roblox to run</li>
+<li>Now you can just start Roblox as usual
+<img src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_600/v1643042332/my-blog/Screenshot_2022-01-24_at_22-08-41_Plane_Crazy.png" alt="Roblox Play game"></li>
+</ol>
+<p><i>Sometimes Roblox web UI wont recognize the Wine Roblox you have installed. After clicking the play button and granting the necessary permissions wait for a few seconds for Roblox player to start up</i></p>
+<p>Thats it. Simple solution to get Roblox working on any Linux distro of your choice. This solution was tested on Wine 7.0, Pop-OS with NVidea 2GB VRAM, and it works without any issues. Any additional fixes and features can be found on their Github page - <a href="https://github.com/roblox-linux-wrapper/roblox-linux-wrapper">https://github.com/roblox-linux-wrapper/roblox-linux-wrapper</a></p>
+
+</body>
+</html>

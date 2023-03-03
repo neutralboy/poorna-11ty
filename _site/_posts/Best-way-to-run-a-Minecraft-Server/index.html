@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p>Minecraft Servers are difficult to deploy and manage on any public cloud service. Self deploying your own server with access management such as Spigot or Bukkit is hard. The documentation for deployment and customization is often incomplete or inadequate. Here's a tutorial that will run through all the steps to deploy a MC Server with Docker!</p>
+</blockquote>
+<p><a href="https://wilfredproject.org">Wilfred project</a> is an <a href="https://github.com/wilfred-dev/wilfred">open-sourced</a> CLI tool to manage game servers on the cloud, and its revolutionary! The pain of deploying and figuring out all the moving parts reduced thanks to Project Wilfred.</p>
+<h1>Step 1: Spin up an EC2 instance and connect to it</h1>
+<p>Spin up the t2.micro instance with <a href="https://aws.amazon.com/amazon-linux-2/"><strong>Amazon Linux 2</strong></a> on AWS. The advantage that Amazon-Linux offers is that its super secure, maintained by AWS (used in their infrastructure) and super light weight. Its best suited for running docker.</p>
+<p><strong>Keep Port 25565 open for TCP and UDP</strong></p>
+<h1>Step 2: Install Docker and Docker Compose on the EC2 instance</h1>
+<p>Here's how you do it.</p>
+<pre><code class="language-bash">sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+
+# Make sure docker starts on system start
+sudo chkconfig docker on
+</code></pre>
+<p>Now install docker-compose:</p>
+<pre><code class="language-bash"># Download the binary - auto downloads the latest version
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+# Add permissions
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Verify installation
+docker-compose version
+</code></pre>
+<p>Now logout of your console and restart a new console session. This should restart all necessary permissions</p>
+<h1>Step 3: Install Wilfred</h1>
+<p>Wilfred is used to manage the dockerized Minecraft server.</p>
+<blockquote>
+<p>pip does not come pre-installed on Amazon Linux 2</p>
+</blockquote>
+<pre><code class="language-bash"># Installing pip
+sudo yum -y install python-pip
+
+# Install wilfred
+pip install wilfred --upgrade
+
+# Check that its installed
+wilfred --version
+
+# Configure Wilfred
+wilfred setup
+</code></pre>
+<h1>Step 4: Install and Configure Minecraft Server</h1>
+<pre><code class="language-bash">wilfred create
+
+&gt; Server name: minecraft
+&gt; Image UID: minecraft-vanilla
+&gt; Port: 25565
+&gt; Memory: 1024
+&gt; Minecraft version: Latest
+</code></pre>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1617205281/my-blog/mc-server/Screenshot_from_2021-03-31_21-10-10.png" alt="Configure"></p>
+<h1>Step 5: Connect to Minecraft Server in the game</h1>
+<p>Use the <em>IP Address</em> of the EC2 Instance with Port 25565 in your Minecraft client.
+<img src="https://res.cloudinary.com/poorna/image/upload/v1617206478/my-blog/mc-server/Screenshot_from_2021-03-31_21-30-42.png" alt="Direct Connect"></p>
+<p><img src="https://media.giphy.com/media/Sk5uipPXyBjfW/source.gif" alt="Celebrate"></p>
+
+</body>
+</html>

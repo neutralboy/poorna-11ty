@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Why use Lightsail for Wordpress hosting ?</h3>
+<p>Most standard hosting sites will offer you hosting as cheap as 3$/month for Wordpress instances. They usually come with limits such as 2GB storage, 100GB data download and so on.
+AWS Lightsail combines Bitnami's hosting offered through AWS with all the standard AWS features. Unlimited data transfer (they are charged) and the ability to scale your storage to 100s of GBs in minutes! All of this and the ability to leverage AWS advanced infrastructure all starting at the cost of 3.5$/month.</p>
+<blockquote>
+<p>But AWS already has EC2 instances</p>
+</blockquote>
+<p>Although AWS already offers the all capable EC2 compute instances, Lightsail is AWS way of competing with DigitalOcean and other competitors which offer <strong>One Click</strong> app installations.</p>
+<h1>Login to your AWS account and click on the Services button in the Navbar</h1>
+<p>Click on the Lightsail link as shown below
+<img class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1613910024/my-blog/Screenshot_2021-02-21_17-48-37.png" /><span class="cssbox_full">
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613910024/my-blog/Screenshot_2021-02-21_17-48-37.png" />
+</span></p>
+<h1>Create the Wordpress Instance in the Lightsail Dashboard</h1>
+<ol>
+<li>Click on the Create Instance Button in the Lightsail Dashboard
+<img alt="Create Instance" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/c_scale,w_900/v1613912560/my-blog/Screenshot_2021-02-21_Lightsail.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613912560/my-blog/Screenshot_2021-02-21_Lightsail.png" />
+</span></li>
+<li>Choose the OS and the App image to be installed
+<img alt="app image" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613912762/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613912762/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail.png" />
+</span></li>
+<li>Choose the pricing plan. The default plan is $3.5/month
+<img alt="pricing" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613912919/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail_1.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613912919/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail_1.png" />
+</span></li>
+<li>Now enable Automatic Backups - choose the time at which you expect the least activity to occur on your instance
+<img alt="backups" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613913010/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail_2.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613913010/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail_2.png" />
+</span></li>
+<li>Add a unique name to your instance - with the ease of creation of instances you will often forget which is which
+<img alt="name" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613913200/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail_3.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613913200/my-blog/Screenshot_2021-02-21_Create_an_instance_Lightsail_3.png" />
+</span></li>
+<li>Click on create instance button</li>
+</ol>
+<h3>Your instance is now being created</h3>
+<h2>It should appear like this once its been created.</h2>
+<p><img alt="Created Instance" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613913444/my-blog/Screenshot_2021-02-21_Lightsail_1.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613913444/my-blog/Screenshot_2021-02-21_Lightsail_1.png" /></p>
+<h2>Lets add a static IP to the instance</h2>
+<p>Adding static IP makes sure that your instance will always have the same IP atttached to it. This can be very useful for DNS</p>
+<ol>
+<li>Click on the Instance and go to the Networking tab\</li>
+<li>Click on the Create Static IP button
+<img alt="Created static IP" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613913715/my-blog/Screenshot_2021-02-21_Demo-wp-instance_Networking_Lightsail.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613913715/my-blog/Screenshot_2021-02-21_Demo-wp-instance_Networking_Lightsail.png" /></li>
+<li>Enter a unique name to identify your static IP
+<img alt="Static IP naming" class="cssbox_thumb" tabindex=1 src="https://res.cloudinary.com/poorna/image/upload/v1613914108/my-blog/Screenshot_2021-02-21_Create_a_static_IP_address_Lightsail.png" /><span class="cssbox_full"><img src="https://res.cloudinary.com/poorna/image/upload/v1613914108/my-blog/Screenshot_2021-02-21_Create_a_static_IP_address_Lightsail.png" /></li>
+<li>Create the IP</li>
+<li>You can verify its creation in the Networking tab of the instance.
+<img src="https://res.cloudinary.com/poorna/image/upload/v1613914212/my-blog/Screenshot_2021-02-21_Demo-wp-instance_Networking_Lightsail_1.png" alt="Verify the Static IP creation"></li>
+</ol>
+
+</body>
+</html>

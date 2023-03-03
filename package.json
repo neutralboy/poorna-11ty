@@ -1,0 +1,16 @@
+{
+  "name": "poorna-11ty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "eleventy --input=_posts --output=_site --formats=md,html",
+    "dev": "eleventy --serve"
+  },
+  "author": "neutralboy",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0"
+  }
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <blockquote>
+<p><strong>What are Elastic IPs?</strong>
+Elastic IPs are public IPs that are allocated by AWS. These IPs can be attached to any of your compute resources. Hence provide one constant end point that your services can communicate to.</p>
+</blockquote>
+<p>Elastic IPs are the best way to avoid single node failure in a conventional server deployment setup.
+Here's how Elastic IPs can help you mitigate risk in your EC2 Instances:</p>
+<h1>Your instance is down with an Elastic IP pointing to it</h1>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1617373695/my-blog/elastic-ip/Untitled_drawing_2.png" alt="Case 1: Your instance is down with an Elastic IP pointing to it"></p>
+<h1>Provision a new instance with an Elastic IP pointing towards it</h1>
+<p><img src="https://res.cloudinary.com/poorna/image/upload/v1617374759/my-blog/elastic-ip/Untitled_drawing_4.png" alt="Provision a new instance with an Elastic IP pointing towards it"></p>
+<p>This setup has several advantages:</p>
+<ul>
+<li><strong>Very low down time</strong> As you can instantly route your traffic to a new instance.</li>
+<li><strong>No need to change DNS records</strong> because your DNS records still points to the original Elastic IP</li>
+<li><strong>The Old Instance stays around</strong> so that you can easily investigate what went wrong</li>
+<li><strong>Very low resource costs</strong> as you only run one instance at once.</li>
+</ul>
+
+</body>
+</html>
