@@ -1,13 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <blockquote>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/index.css" />
+    <title>Best way to run a Minecraft Server on AWS | Poorna's blog</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://res.cloudinary.com/poorna/image/upload/v1622972701/my-blog/logo/Screenshot_2021-06-06_at_15-14-35_Home_Poorna_s_Blog.png"
+    />
+    <meta name="description" content="Minecraft server deployment can be a pain, but Wilfred can make it easy with docker deployment" />
+    <meta property="og:description" content="Minecraft server deployment can be a pain, but Wilfred can make it easy with docker deployment" />
+    <meta property="og:title" content="Best way to run a Minecraft Server on AWS | Poorna's Blog " />
+    <meta property="og:type" content="blog" />
+    <meta property="og:url" content="https://www.poorna.dev/_posts/Best-way-to-run-a-Minecraft-Server/" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Poorna's blog logo" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:article:published_time" content="Fri Mar 12 2021 05:40:00 GMT+0530 (India Standard Time)" />
+    <meta property="og:article:tag" content="" />
+    <meta property="og:article:author" content="Poornachandra" />
+  </head>
+
+  <body class="bg-slate-200 font-primary">
+    <nav class="w-full top-0 sticky py-5 bg-indigo-900">
+      <div class="lg:container mx-auto flex justify-between">
+        <a
+          href="/"
+          class="text-3xl underline text-slate-200 font-bold block my-auto"
+        >
+          Poorna
+        </a>
+        <div class="flex gap-x-4">
+          <a href="/say-hello" class="text-slate-200 text-lg block my-auto hover:underline hover:text-slate-100">
+            Say Hello
+          </a>
+          <a
+            rel="noopener"
+            href="https://www.linkedin.com/in/poornachandra-v/"
+            class="p-0.5 bg-blue-500 hover:bg-blue-600 lg:block hidden my-auto"
+          >
+            <svg
+              class="fill-current text-white block"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 21H9V9H13V11C13.8526 9.91525 15.1456 9.26857 16.525 9.237C19.0056 9.25077 21.0072 11.2694 21 13.75V21H17V14.25C16.84 13.1326 15.8818 12.3036 14.753 12.306C14.2593 12.3216 13.7932 12.5378 13.4624 12.9046C13.1316 13.2715 12.9646 13.7573 13 14.25V21ZM7 21H3V9H7V21ZM5 7C3.89543 7 3 6.10457 3 5C3 3.89543 3.89543 3 5 3C6.10457 3 7 3.89543 7 5C7 5.53043 6.78929 6.03914 6.41421 6.41421C6.03914 6.78929 5.53043 7 5 7Z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="bg-indigo-800 py-10 mb-14 flex justify-center border-b-8 border-b-indigo-600"
+    >
+      <div class="lg:container mx-auto flex justify-between px-4">
+        <h1 class="text-5xl font-bold text-slate-100 block my-auto">
+          Best way to run a Minecraft Server on AWS
+        </h1>
+        <p
+          class="block my-auto text-gray-600 bg-slate-200 px-2 py-1 rounded-md"
+        >
+          Easy
+        </p>
+      </div>
+    </div>
+
+    <div class="lg:container px-4 mx-auto">
+      <div class="prose max-w-none mb-10"><blockquote>
 <p>Minecraft Servers are difficult to deploy and manage on any public cloud service. Self deploying your own server with access management such as Spigot or Bukkit is hard. The documentation for deployment and customization is often incomplete or inadequate. Here's a tutorial that will run through all the steps to deploy a MC Server with Docker!</p>
 </blockquote>
 <p><a href="https://wilfredproject.org">Wilfred project</a> is an <a href="https://github.com/wilfred-dev/wilfred">open-sourced</a> CLI tool to manage game servers on the cloud, and its revolutionary! The pain of deploying and figuring out all the moving parts reduced thanks to Project Wilfred.</p>
@@ -65,6 +144,25 @@ wilfred setup
 <p>Use the <em>IP Address</em> of the EC2 Instance with Port 25565 in your Minecraft client.
 <img src="https://res.cloudinary.com/poorna/image/upload/v1617206478/my-blog/mc-server/Screenshot_from_2021-03-31_21-30-42.png" alt="Direct Connect"></p>
 <p><img src="https://media.giphy.com/media/Sk5uipPXyBjfW/source.gif" alt="Celebrate"></p>
+</div>
+    </div>
 
-</body>
+    <a href="/" class="sticky bottom-0 text-xl bg-white px-3 py-2 rounded-r-md">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 inline"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+        />
+      </svg>
+      Go back
+    </a>
+  </body>
 </html>

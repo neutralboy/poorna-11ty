@@ -50,7 +50,7 @@ python3 install.py
 ```
 This should create a link in the desktop. Search for `Warp Cloudflare` in the desktop menu.
 
-![WARP Client for Linux](https://raw.githubusercontent.com/mrmoein/warp-cloudflare-gui/main/Screenshot.png)
+![WARP Client for Linux](https://raw.githubusercontent.com/mrmoein/warp-cloudflare-gui/main/icons/Screenshot.png)
 
 ## Advanced: Switching modes
 WARP CLI can also be used to toggle between modes. 

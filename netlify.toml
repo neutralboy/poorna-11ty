@@ -1,0 +1,23 @@
+[[redirects]]
+    from = "/li"
+    to = "https://www.linkedin.com/in/poornachandra-v/"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "/linkedin"
+    to = "https://www.linkedin.com/in/poornachandra-v/"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "/LinkedIn"
+    to = "https://www.linkedin.com/in/poornachandra-v/"
+    status = 301
+    force = true
+
+[[redirects]]
+    from = "/post*"
+    to = "/post"
+    status = 301
+    force = true
