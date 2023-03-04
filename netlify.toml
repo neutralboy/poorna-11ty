@@ -17,7 +17,7 @@
     force = true
 
 [[redirects]]
-    from = "/post*"
-    to = "/post"
+    from = "/post/*"
+    to = "/_posts/*"
     status = 301
     force = true
