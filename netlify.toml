@@ -15,9 +15,3 @@
     to = "https://www.linkedin.com/in/poornachandra-v/"
     status = 301
     force = true
-
-[[redirects]]
-    from = "/post/*"
-    to = "/_posts/:splat"
-    status = 301
-    force = true
