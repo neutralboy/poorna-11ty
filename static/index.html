@@ -1,6 +1,5 @@
 ---
-eleventyImport:
-  collections: ["post"]
+permalink: "/"
 ---
 
 <!DOCTYPE html>
@@ -49,7 +48,7 @@ eleventyImport:
     </style>
   </head>
 
-  <body class="bg-slate-200 font-primary">
+  <body class="bg-slate-200 font-primary mb-10">
     <nav class="w-full top-0 sticky py-5 bg-indigo-900">
       <div class="lg:container mx-auto flex justify-between px-6">
         <a
@@ -60,15 +59,9 @@ eleventyImport:
         </a>
         <div class="flex gap-x-4">
           <a
-            href="/say-hello"
-            class="text-slate-200 text-lg block my-auto hover:underline hover:text-slate-100"
-          >
-            Say Hello
-          </a>
-          <a
             rel="noopener"
             href="https://www.linkedin.com/in/poornachandra-v/"
-            class="p-0.5 bg-blue-500 hover:bg-blue-600 lg:block hidden my-auto"
+            class="p-0.5 bg-blue-500 hover:bg-blue-600 lg:block my-auto"
           >
             <svg
               class="fill-current text-white block"
@@ -86,9 +79,113 @@ eleventyImport:
         </div>
       </div>
     </nav>
-    
-    {%- for post in collections.post -%}
-    <li>{{ post.data.title }}</li>
-  {%- endfor -%}
+
+    <div
+      class="min-h-[35vh] bg-slate-900 flex flex-col justify-center say-hello bg-no-repeat bg-cover bg-center"
+    >
+      <div
+        class="lg:container mx-auto px-6 my-auto flex flex-col justify-center"
+      >
+        <h1
+          class="text-6xl font-bold block text-center mx-auto text-transparent say-hello-text bg-no-repeat bg-cover bg-clip-text bg-left"
+        >
+          Hey there, I'm Dr.Poorna
+        </h1>
+      </div>
+    </div>
+
+    <div
+      class="lg:container px-6 mx-auto my-6 flex flex-col gap-y-2 text-xl text-gray-600"
+    >
+      <p>
+        I'm Poornachandra, a medical graduate who's really into healthcare tech.
+        Currently working at
+        <a rel="noopener" href="https://medblocks.org" class="underline"
+          >Medblocks</a
+        >
+        building the future of healhcare interoperability.
+      </p>
+      <p>
+        Previously I've built and led a Web consultancy agency and explored all
+        the web technologies - from AWS to NextJS and Diesel(Rust). If you have
+        anything interesting in healthcare I could work on, you can drop me an
+        email at hey-@-poorna.dev.
+      </p>
+      <p>
+        If you want to know what I have done before and what I can do - you can
+        checkout my LinkedIn and Github. All my articles are here below:
+      </p>
+      <div class="flex flex-row mt-6 space-x-3">
+        <a
+          rel="noopener"
+          href="https://www.linkedin.com/in/poornachandra-v/"
+          class="flex bg-blue-600 p-3 rounded text-white space-x-3 hover:bg-blue-500"
+        >
+          <svg
+            class="fill-current text-white block"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13 21H9V9H13V11C13.8526 9.91525 15.1456 9.26857 16.525 9.237C19.0056 9.25077 21.0072 11.2694 21 13.75V21H17V14.25C16.84 13.1326 15.8818 12.3036 14.753 12.306C14.2593 12.3216 13.7932 12.5378 13.4624 12.9046C13.1316 13.2715 12.9646 13.7573 13 14.25V21ZM7 21H3V9H7V21ZM5 7C3.89543 7 3 6.10457 3 5C3 3.89543 3.89543 3 5 3C6.10457 3 7 3.89543 7 5C7 5.53043 6.78929 6.03914 6.41421 6.41421C6.03914 6.78929 5.53043 7 5 7Z"
+            ></path>
+          </svg>
+          <span class="block font-display text-xl">LinkedIn</span>
+        </a>
+        <a
+          rel="noopener"
+          href="https://github.com/neutralboy/"
+          class="flex bg-blue-600 p-3 rounded text-white space-x-3 hover:bg-blue-500"
+        >
+          <svg
+            class="fill-current text-white block"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.026 2C7.13295 1.99937 2.96183 5.54799 2.17842 10.3779C1.395 15.2079 4.23061 19.893 8.87302 21.439C9.37302 21.529 9.55202 21.222 9.55202 20.958C9.55202 20.721 9.54402 20.093 9.54102 19.258C6.76602 19.858 6.18002 17.92 6.18002 17.92C5.99733 17.317 5.60459 16.7993 5.07302 16.461C4.17302 15.842 5.14202 15.856 5.14202 15.856C5.78269 15.9438 6.34657 16.3235 6.66902 16.884C6.94195 17.3803 7.40177 17.747 7.94632 17.9026C8.49087 18.0583 9.07503 17.99 9.56902 17.713C9.61544 17.207 9.84055 16.7341 10.204 16.379C7.99002 16.128 5.66202 15.272 5.66202 11.449C5.64973 10.4602 6.01691 9.5043 6.68802 8.778C6.38437 7.91731 6.42013 6.97325 6.78802 6.138C6.78802 6.138 7.62502 5.869 9.53002 7.159C11.1639 6.71101 12.8882 6.71101 14.522 7.159C16.428 5.868 17.264 6.138 17.264 6.138C17.6336 6.97286 17.6694 7.91757 17.364 8.778C18.0376 9.50423 18.4045 10.4626 18.388 11.453C18.388 15.286 16.058 16.128 13.836 16.375C14.3153 16.8651 14.5612 17.5373 14.511 18.221C14.511 19.555 14.499 20.631 14.499 20.958C14.499 21.225 14.677 21.535 15.186 21.437C19.8265 19.8884 22.6591 15.203 21.874 10.3743C21.089 5.54565 16.9181 1.99888 12.026 2Z"
+            ></path>
+          </svg>
+          <span class="block font-display text-xl">GitHub</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="lg:container px-6 mx-auto my-10">
+      <div class="grid lg:grid-cols-3 grid-cols-1 gap-3">
+        {% for post in collections.blogPosts %}
+        <a href="{{ post.page.url }}" class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4  hover:border-indigo-400 border-2 border-indigo-200 flex flex-col ">
+          <div class="lg:flex lg:justify-between lg:gap-x-3" >
+            <p class="text-xl font-medium text-gray-700" >
+              {{ post.data.title }}
+            </p>
+            <p class="text-indigo-800 underline" >
+              {{ post.data.level }}
+            </p>
+          </div>
+          <p class="text-gray-600 mt-auto" >
+            {{ post.data.description }}
+          </p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="px-6">
+      <div
+        class="lg:container px-6 border border-orange-400 rounded-md text-lg text-gray-700 py-3 mx-auto"
+      >
+        <p class="text-center
+        " >
+          All the opinions on this blog are my own. Rights reserved Poornachandra 2020-PRESENT.
+        </p>
+      </div>
+    </div>
   </body>
 </html>

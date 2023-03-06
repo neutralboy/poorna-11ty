@@ -15,3 +15,9 @@
     to = "https://www.linkedin.com/in/poornachandra-v/"
     status = 301
     force = true
+
+[[redirects]]
+    from = "/say-hello"
+    to = "/"
+    status = 301
+    force = true

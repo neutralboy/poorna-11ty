@@ -22,7 +22,7 @@ Turn off the Wifi's on the **MyJio app**. Navigate the wifi settings and turn of
 
 ## Step 2
 Connect an external wifi router to the Jio router using an ethernet cable. I used an old TP-Link router to serve as my wifi endpoint. 
-![Wifi Schematic](/jio_router.svg)
+![Wifi Schematic](/public/jio_router.svg)
 
 
 
