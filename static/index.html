@@ -102,12 +102,13 @@ permalink: "/"
         Currently working at
         <a rel="noopener" href="https://medblocks.org" class="underline"
           >Medblocks</a
-        >
+        > taking care of Operations and Sales while
         building the future of healhcare interoperability.
       </p>
       <p>
         Previously I've built and led a Web consultancy agency and explored all
-        the web technologies - from AWS to NextJS and Diesel(Rust). If you have
+        the web technologies - from AWS to NextJS and Diesel(Rust). Also been the first employee of a startup called Coverself.
+        If you have
         anything interesting in healthcare I could work on, you can drop me an
         email at hey-@-poorna.dev.
       </p>
@@ -160,17 +161,19 @@ permalink: "/"
     <div class="lg:container px-6 mx-auto my-10">
       <div class="grid lg:grid-cols-3 grid-cols-1 gap-3">
         {% for post in collections.blogPosts %}
-        <a href="{{ post.page.url }}" class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4  hover:border-indigo-400 border-2 border-indigo-200 flex flex-col ">
-          <div class="lg:flex lg:justify-between lg:gap-x-3" >
-            <p class="text-xl font-medium text-gray-700" >
+        <a
+          href="{{ post.page.url }}"
+          class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4 hover:border-indigo-400 border-2 border-indigo-200 flex flex-col"
+        >
+          <div class="lg:flex lg:justify-between lg:gap-x-3">
+            <p class="text-xl font-medium text-gray-700">
               {{ post.data.title }}
             </p>
-            <p class="text-indigo-800 underline" >
-              {{ post.data.level }}
-            </p>
+            <p class="text-indigo-800 underline">{{ post.data.level }}</p>
           </div>
-          <p class="text-gray-600 mt-auto" >
-            {{ post.data.description }}
+          <p class="text-gray-600 mt-auto">{{ post.data.description }}</p>
+          <p class="mt-1">
+            {{ post.data.date | toLocaleString }}
           </p>
         </a>
         {% endfor %}
@@ -181,11 +184,21 @@ permalink: "/"
       <div
         class="lg:container px-6 border border-orange-400 rounded-md text-lg text-gray-700 py-3 mx-auto"
       >
-        <p class="text-center
-        " >
-          All the opinions on this blog are my own. Rights reserved Poornachandra 2020-PRESENT.
+        <p class="text-center">
+          All the opinions on this blog are my own. Rights reserved
+          Poornachandra 2020-PRESENT.
         </p>
       </div>
     </div>
+    <script>
+      const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { month: "long", year: "numeric" };
+        return date.toLocaleDateString("en-US", options);
+      };
+
+      const inputDate = "2021-06-03 18:50:19";
+      const formattedDate = formatDate(inputDate);
+    </script>
   </body>
 </html>
