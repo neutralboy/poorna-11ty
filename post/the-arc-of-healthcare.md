@@ -12,6 +12,8 @@ image: https://poorna-657a.s3.ap-south-1.amazonaws.com/Screenshot+from+2022-10-1
 Work in Progress
 ```
 
+> This article is about the current state of Physician central healthcare and the move to Patient Centric model of healthcare and how AI comes in.
+
 Healthcare conventionally refers to the care provided by professionally trained people in order to maintain ones health. This definition is fairly recent as in the 1800s most health interventions were performed by barbers and faith healers. With life expectancy at 40 and germ theory of disease not being widely known that's the best healthcare e could think of.
 
 From the 1850s everyone started to agree on the germ theory of disease and bacterial etiology of disease came to be widely accepted. Then the discovery of Antibiotics started a whole new wave in healthcare where curing disease etiology became the mainstay.
