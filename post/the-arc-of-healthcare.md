@@ -23,6 +23,6 @@ All of this has made the current state of healthcare since 1950s very Physician 
 
 This approach is very scalable since it only needs a very small group of well trained people to setup care centers. It also misses a few very important dimensions such as social dimension and emotional dimension. Diagnosing and treating a patient in an artificial setting out of their habitat leads to some weird outcomes. 
 
-For example, treating a patient for diabetes without considering culture specific habits will not lead to glycemic control. 
+For example, most diabetics do not know that blood sugar is a function of what they consume and that it has hourly fluctuations based on physician activity. Doctors fail to convey this model to the patients. This means that patients do not understand the necessity of dietary or physical interventions and depend drugs to perform bulk of the work.
 
 
