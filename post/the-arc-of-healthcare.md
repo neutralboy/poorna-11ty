@@ -12,7 +12,7 @@ image: https://poorna-657a.s3.ap-south-1.amazonaws.com/Screenshot+from+2022-10-1
 Work in Progress
 ```
 
-> This article is about the current state of Physician central healthcare and the move to Patient Centric model of healthcare and how AI comes in.
+> This article is about the current state of Physician centric healthcare and the move to Patient Centric model of healthcare and how AI comes in.
 
 Healthcare conventionally refers to the care provided by professionally trained people in order to maintain ones health. This definition is fairly recent as in the 1800s most health interventions were performed by barbers and faith healers. With life expectancy at 40 and germ theory of disease not being widely known that's the best healthcare e could think of.
 
@@ -27,4 +27,7 @@ This approach is very scalable since it only needs a very small group of well tr
 
 For example, most diabetics do not know that blood sugar is a function of what they consume and that it has hourly fluctuations based on physician activity. Doctors fail to convey this model to the patients. This means that patients do not understand the necessity of dietary or physical interventions and depend drugs to perform bulk of the work.
 
+## What is happening right now ?
+Over the past century healthcare awareness has increased due to overall increase in education and public policy shift. People can now manage their own health without extensive governmental involvement due it. This has led to decrease in infectious diseases and related death over the century. We have a long way to go with eradicating Malaria and Tuberculosis but now we atleast understand their etiologies in detail. 
+Chronic Non Communicable diseases are now the leading cause of mortality and healthcare spend all over the globe. 
 
