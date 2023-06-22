@@ -3,5 +3,6 @@
     { "source": "/li", "destination": "https://www.linkedin.com/in/poornachandra-v/", "permanent": true },
     { "source": "/linkedin", "destination": "https://www.linkedin.com/in/poornachandra-v/", "permanent": true },
     { "source": "/say-hello", "destination": "/", "permanent": true }
-  ]
+  ],
+  "buildCommand": "npm run generate"
 }

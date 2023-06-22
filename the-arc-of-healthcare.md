@@ -8,7 +8,6 @@ layout: post.html
 image: https://poorna-657a.s3.ap-south-1.amazonaws.com/Screenshot+from+2022-10-18+18-44-04.png
 ---
 
-<<<<<<< HEAD
 ```
 Work in Progress
 ```
@@ -32,5 +31,3 @@ For example, most diabetics do not know that blood sugar is a function of what t
 Over the past century healthcare awareness has increased due to overall increase in education and public policy shift. People can now manage their own health without extensive governmental involvement due it. This has led to decrease in infectious diseases and related death over the century. We have a long way to go with eradicating Malaria and Tuberculosis but now we atleast understand their etiologies in detail. 
 Chronic Non Communicable diseases are now the leading cause of mortality and healthcare spend all over the globe. 
 
-=======
->>>>>>> 1137449 (added vercel.json)
