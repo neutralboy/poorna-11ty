@@ -24,18 +24,15 @@
     <meta property="og:url" content="https://www.poorna.dev{{ page.url }}" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png"
+      content="{{ image || https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png }}"
     />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:alt" content="Poorna's blog logo" />
+    <meta property="og:image:alt" content="{{ title }}" />
     <meta property="og:locale" content="en_US" />
 
     <meta property="og:article:published_time" content="{{date}}" />
     <meta property="og:article:tag" content="{{keywords}}" />
     <meta property="og:article:author" content="Poornachandra" />
-    <style>
-      .katex { font-size: 1.2rem; }
-    </style>
   </head>
 
   <body class="bg-slate-200 font-primary">
