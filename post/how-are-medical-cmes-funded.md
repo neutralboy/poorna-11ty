@@ -80,11 +80,11 @@ Running the same set of calculations for a Type 2 Diabetics who was diagnosed at
 \\\text {Total money spent from 40 years to 70 years} = 30 \;\text{years} \times 365 \;\text{days} \times 25 \;\text{Units} \times 4.8 \;\text{INR}
 \\\ = 13,14,000 \;\text{INR or 15,830 USD}
 \\\
-\\\text {Present Value of the Patient} = \text {Current Value} \times ( 1 + 0.006 )^{-30}
-\\\ = 10,98,135.5\;\text{INR or 13,230 USD}
+\\\text {Present Value of the Patient} = \text {Current Value} \times ( 1 + 0.06 )^{-30}
+\\\ = 2,28,780\;\text{INR or 2756 USD}
 </pre>
 
-Present Discounted value of a Type 2 Diabetic is <p class="text-2xl" >$ 13,230</p>
+Present Discounted value of a Type 2 Diabetic is <p class="text-2xl" >$ 2756</p>
 
 For the CME programme to be economically succesful the number of patients that need to be started on Tresiba is <p class="text-3xl font-bold bg-red-200 border-b-4 border-solid border-red-500 inline-block p-2 m-0" >1 patient</p>
 
