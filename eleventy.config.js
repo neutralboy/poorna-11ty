@@ -23,10 +23,17 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("blogPosts", (api) => {
-    console.log(api.getAll().filter(p => p.data.layout === "post.html"))
+    // console.log(api.getAll().filter(p => p.data.layout === "post.html"))
     return api.getAll().filter(p => p.data.layout === "post.html").sort((post1, post2) =>
     (post1.data.date > post2.data.date ? -1 : 1)
     ) ;
   });
+
+  // Eleventy configuration to generate sitemap.xml
+  eleventyConfig.addPlugin(require("@quasibit/eleventy-plugin-sitemap"), {
+    sitemap: {
+      hostname: "https://poorna.dev",
+    }
+  })
 
 };
