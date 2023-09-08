@@ -70,10 +70,12 @@ Now lets apply [discounted cash flow method](https://en.wikipedia.org/wiki/Disco
 \\\ = 464029.7 \text {INR}
 </pre>
 
-Present discounted value of the patient is 
+Present discounted value of the patient is
+
 <p class="text-3xl" >$ 5,524</p>
 
 Running the same set of calculations for a Type 2 Diabetics who was diagnosed at the age of 40 and put of Tresiba. Type 2 Diabetics usually require significantly less Tresiba since they can partially produce their own Insulin.
+
 <pre id="latex">
 \text { A 40 year old is usually put on 25 units per day }
 \\\
@@ -89,7 +91,6 @@ Present Discounted value of a Type 2 Diabetic is <p class="text-2xl" >$ 2756</p>
 For the CME programme to be economically succesful the number of patients that need to be started on Tresiba is <p class="text-3xl font-bold bg-red-200 border-b-4 border-solid border-red-500 inline-block p-2 m-0" >1 patient</p>
 
 Assuming the CME cost around 40,000 INR or 500 USD to host.
-
 
 This article is an attempt to peek at the economics of marketing Insulins in India. A lot of factors have not been taken into account in my calculations.
 

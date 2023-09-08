@@ -22,10 +22,14 @@
     <meta property="og:title" content="{{title}} | Poorna's Blog " />
     <meta property="og:type" content="blog" />
     <meta property="og:url" content="https://www.poorna.dev{{ page.url }}" />
+    {% if image %}
+    <meta property="og:image" content="{{ image }}" />
+    {% else %}
     <meta
       property="og:image"
-      content="{{ image || https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png }}"
+      content="https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png"
     />
+    {% endif %}
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content="{{ title }}" />
     <meta property="og:locale" content="en_US" />
@@ -39,7 +43,11 @@
         "@type": "Article",
         "headline": "{{ title }}",
         "image": [
-          "{{ image || https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png }}"
+        {%  if image %}
+          "{{ image }}",
+        {% else %}
+          "https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png",
+        {% endif %}
         ],
         "datePublished": "{{ date }}",
         "dateModified": "{{ date }}",
@@ -92,7 +100,7 @@
     <div
       class="bg-indigo-800 py-10 mb-14 flex-col justify-center border-b-8 border-b-indigo-600"
     >
-      <div class="lg:container mx-auto px-4">
+      <div class="lg:container lg:px-14 px-4 mx-auto">
         <div
           class="flex lg:flex-row flex-col-reverse gap-y-3 lg:justify-between"
         >
@@ -111,7 +119,7 @@
 
     <div class="lg:container px-4 mx-auto">
       <div
-        class="prose max-w-none mb-10 prose-img:lg:max-w-1/2 prose-img:lg:max-h-[30vh] prose-blockquote:bg-slate-300 prose-blockquote:border-l-4 prose-blockquote:border-solid prose-blockquote:border-indigo-500 prose-blockquote:py-2 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-base prose-pre:-z-30"
+        class="prose mx-auto mb-10 prose-img:lg:max-w-1/2 prose-img:lg:max-h-[30vh] prose-blockquote:bg-slate-300 prose-blockquote:border-l-4 prose-blockquote:border-solid prose-blockquote:border-indigo-500 prose-blockquote:py-2 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-base prose-pre:-z-30 prose-xl"
       >
         {{ content }}
       </div>

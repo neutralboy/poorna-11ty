@@ -12,12 +12,12 @@
   "author": "neutralboy",
   "license": "MIT",
   "dependencies": {
-    "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy": "^2.0.1",
     "html-minifier": "^4.0.0"
   },
   "devDependencies": {
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
-    "@tailwindcss/typography": "^0.5.9",
-    "tailwindcss": "^3.2.7"
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.3.3"
   }
 }

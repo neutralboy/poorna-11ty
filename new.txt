@@ -1,0 +1,1 @@
+error in converting sdl to metadata: fork/exec /root/.hasura/cli-ext/v2.32.1/cli-ext-886403857/cli-ext: no such file or directory:
