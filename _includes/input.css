@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 .font-primary{
-    font-family: 'Inter', sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 .katex { font-size: 1.2rem; }
