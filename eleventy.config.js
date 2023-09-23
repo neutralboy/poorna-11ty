@@ -32,7 +32,7 @@ module.exports = function (eleventyConfig) {
   // Eleventy configuration to generate sitemap.xml
   eleventyConfig.addPlugin(require("@quasibit/eleventy-plugin-sitemap"), {
     sitemap: {
-      hostname: "https://poorna.dev",
+      hostname: "https://www.poorna.dev",
     }
   })
 
