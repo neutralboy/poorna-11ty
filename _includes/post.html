@@ -49,19 +49,15 @@
               "@type": "Article",
               "headline": "{{ title }}",
               "image": [
-              {%  if image %}
-                "{{ image }}",
-              {% else %}
-                "https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png",
-              {% endif %}
-              ],
+              "{{ image || https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png }}"
+            ],
               "datePublished": "{{ date }}",
               "dateModified": "{{ date }}",
               "author": [
                 {
                   "@type": "Person",
                   "name": "Poornachandra Vivekananda",
-                  "url": "https://poorna.dev",
+                  "url": "https://www.poorna.dev",
                   "honorificPrefix": "Dr"
                 }
               ],
