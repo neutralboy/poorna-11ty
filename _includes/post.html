@@ -63,6 +63,7 @@
                 "keywords": "{{ keywords }}"
             }
         </script>
+        <link rel="stylesheet" href="/public/hl/styles/github-dark.min.css" >
     </head>
 
     <body class="bg-slate-200 font-primary">
@@ -120,7 +121,7 @@
 
         <div class="lg:container px-4 mx-auto">
             <div
-                class="prose lg:prose-xl mx-auto mb-10 prose-img:lg:max-w-1/2 prose-img:lg:max-h-[30vh] prose-blockquote:bg-slate-300 prose-blockquote:border-l-4 prose-blockquote:border-solid prose-blockquote:border-indigo-500 prose-blockquote:py-2 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-base prose-pre:-z-30 prose-h1:text-3xl prose-h2:text-3xl"
+                class="prose lg:prose-xl mx-auto mb-10 prose-img:lg:max-w-1/2 prose-img:lg:max-h-[30vh] prose-blockquote:bg-slate-300 prose-blockquote:border-l-4 prose-blockquote:border-solid prose-blockquote:border-indigo-500 prose-blockquote:py-2 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-base prose-pre:-z-30 prose-h1:text-3xl prose-h2:text-3xl  prose-code:text-sm prose-code:leading-5 prose-pre:bg-[#0d1117] prose-pre:shadow-md"
             >
                 {{ content }}
             </div>
@@ -146,5 +147,7 @@
             </svg>
             Go back
         </a>
+        <script src="/public/hl/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
     </body>
 </html>
