@@ -51,6 +51,17 @@ permalink: "/"
             .say-hello {
                 background-image: url("/public/sayhello.svg");
             }
+            .bg-gradient-diagonal-golden {
+                background: linear-gradient(
+                    to bottom right,
+                    var(
+                        --tw-gradient-stops,
+                        rgb(217, 216, 245) 0%,
+                        rgb(245, 245, 245) 50%,
+                        rgba(228, 219, 171, 0.76) 100%
+                    )
+                );
+            }
         </style>
     </head>
 
@@ -175,7 +186,7 @@ permalink: "/"
                 {% for post in collections.blogPosts %}
                 <a
                     href="{{ post.page.url }}"
-                    class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4 hover:border-indigo-400 border-2 border-indigo-200 flex flex-col bg-slate-50"
+                    class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4  flex flex-col border-2 {% if post.data.level == 'Opinion' %} bg-gradient-diagonal-golden border-orange-200 hover:border-orange-400 {% else %} bg-slate-50 hover:border-indigo-400  border-indigo-200 {% endif %}"
                 >
                     <div class="lg:flex lg:justify-between lg:gap-x-3">
                         <p class="text-xl font-medium text-gray-700">
