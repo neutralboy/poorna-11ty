@@ -81,8 +81,10 @@ window.onload = async () => {
     }
 };
 ```
-
+Full example is located at [github.com/neutralboy/poorna-11ty/tree/master/functions/gdpr-tester.js](https://github.com/neutralboy/poorna-11ty/tree/master/functions/gdpr-tester.js)
 Now without tracking the user you know when they load your server where the users are located at.
+
+> Since this site is also deployed on Cloudflare Pages you can head over to [poorna.dev/gdpr-tester](https://poorna.dev/gdpr-tester) to try it out right now.
 
 ### Few additional notes:
 
