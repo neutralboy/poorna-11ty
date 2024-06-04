@@ -104,9 +104,9 @@ permalink: "/"
             <div
                 class="lg:container mx-auto px-6 my-auto flex flex-col justify-center"
             >
-            <p class="text-3xl block text-center text-slate-300" >
-                Hey there
-            </p>
+                <p class="text-3xl block text-center text-slate-300">
+                    Hey there
+                </p>
                 <h1
                     class="text-6xl font-bold block text-center mx-auto text-slate-200 bg-no-repeat bg-cover bg-clip-text bg-left"
                 >
@@ -189,7 +189,7 @@ permalink: "/"
                 {% for post in collections.blogPosts %}
                 <a
                     href="{{ post.page.url }}"
-                    class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4  flex flex-col border-2 {% if post.data.level == 'Opinion' %} bg-gradient-diagonal-golden border-orange-200 hover:border-orange-400 {% else %} bg-slate-50 hover:border-indigo-400  border-indigo-200 {% endif %}"
+                    class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4 flex flex-col border-2 {% if post.data.level == 'Opinion' %} bg-gradient-diagonal-golden border-orange-200 hover:border-orange-400 {% else %} bg-slate-50 hover:border-indigo-400 border-indigo-200 {% endif %}"
                 >
                     <div class="lg:flex lg:justify-between lg:gap-x-3">
                         <p class="text-xl font-medium text-gray-700">
