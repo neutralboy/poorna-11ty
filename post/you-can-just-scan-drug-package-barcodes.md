@@ -8,15 +8,18 @@ layout: post.html
 image: /public/ndc-barcode-prednisone.png
 ---
 
-After a long time I have had the idea to get back to writing blog article and this one is about how state capacity and ability to write good legislation leads to wonderful outcomes. This story is drawn from my personal experience building EHRs that needed barcode scanning to enter drugs to prevent errors in administration. If barcode is scanned before administration then it can be validated against prescription to make sure its compliant. This was a requested feature for months on end and I had put it off since I assumed that we needed access to a proprietary dataset that contains barcode mappings to the product details. The other option is that I have the inventory manager scan everything so that we maintain a log of all drugs, this is error prone and introduces a new change in their workflows.
-In India where I previously developed applications it was complicated and you usually contracted with a pharmacy chain to get access to this data.
+After a long hiatus from writing, I'm back with a piece about how state capacity and good regulation can lead to wonderful outcomes. This story comes from my personal experience building EHRs that needed barcode scanning to identify drugs before administration — the idea being that if you scan a drug's barcode before giving it to a patient, you can validate it against the prescription and prevent medication errors.
 
-Curiously while exploring options with Claude, where it told me that all barcodes for drugs in the US have National Drug Number encoded within them. This was new information to me. This meant that I could write a scanner using any barcode reader and interpret the barcodes using NDC which is free to download on FDAs own site - [https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory](https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory)
+This was a feature request I'd been putting off for months. I assumed we'd need access to some proprietary dataset that maps barcodes to product details. The alternative was having the inventory manager scan everything manually to maintain a log of all drugs in stock, which is error-prone and forces a change in their workflows. In India, where I previously developed applications, it was always complicated — you'd typically contract with a pharmacy chain just to get access to this data.
 
-Example for Prednisone 5mg that shows Barcode 93520-18481 and corresponding NDC number as 12634-18481
+Curiously, while exploring options with Claude, I learned that all drug barcodes in the US have the National Drug Code (NDC) encoded within them. This was completely new to me. It meant I could build a scanner using any standard barcode reader and look up the drug details using the NDC directory, which the FDA makes freely available — [National Drug Code Directory](https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory).
+
+Here's an example for Prednisone 5mg — the barcode reads 93520-18481, and the corresponding NDC number is 12634-18481:
+
 <img src="/public/ndc-barcode-prednisone.png" alt="Prednisone 5mg barcode showing NDC number">
 
-At the top this seems like a normal feature of a country where the regulators want to make it easier for people to use the directories they build so that it increases patient safety. This is not the case in India, where the agency that approves drugs for human use and the agency responsible for making these data sets available arent the same leading to datasets that arent accurate. As a business if you know the data you're getting isnt accurate you wont put it into use at all and this is the case with Indias Drug codes.
+On the surface, this seems like a straightforward feature of a country where regulators actually want people to use the directories they build, ultimately improving patient safety. India tells a different story. The agency that approves drugs for human use and the agency responsible for making these datasets available aren't the same, which leads to datasets that aren't accurate. If you're a business and you know the data you're getting isn't reliable, you simply won't put it into production — and that's exactly what's happened with India's drug codes.
+
 <img src="/public/nrces-snomed-release.png" alt="NRCES SNOMED CT release notes showing limited drug coverage">
 
-They'll even tell you in their release file which can be found here: [https://www.nrces.in/resources#snomedct_releases](https://www.nrces.in/resources#snomedct_releases) that they dont want to cover all drugs.
+They'll even tell you in their [release notes](https://www.nrces.in/resources#snomedct_releases) that they don't intend to cover all drugs.
