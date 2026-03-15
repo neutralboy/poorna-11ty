@@ -1,10 +1,10 @@
-const htmlmin = require("html-minifier");
+const htmlmin = require("html-minifier-terser");
 
 module.exports = function (eleventyConfig) {
 
-  eleventyConfig.addTransform("htmlmin", function(content) {
+  eleventyConfig.addTransform("htmlmin", async function(content) {
     if( this.page.outputPath && this.page.outputPath.endsWith(".html") ) {
-      let minified = htmlmin.minify(content, {
+      let minified = await htmlmin.minify(content, {
         useShortDoctype: true,
         removeComments: true,
         collapseWhitespace: true
