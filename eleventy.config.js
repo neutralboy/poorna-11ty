@@ -29,6 +29,8 @@ module.exports = function (eleventyConfig) {
     ) ;
   });
 
+  eleventyConfig.addPlugin(require("./plugins/structured-data.js"));
+
   // Eleventy configuration to generate sitemap.xml
   eleventyConfig.addPlugin(require("@quasibit/eleventy-plugin-sitemap"), {
     sitemap: {

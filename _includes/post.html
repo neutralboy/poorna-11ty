@@ -4,13 +4,47 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-            rel="stylesheet"
-        />
         <link rel="stylesheet" type="text/css" href="/index.css" />
+        <script type="speculationrules">
+            {
+                "prerender": [
+                    { "where": { "href_matches": "/*" }, "eagerness": "moderate" }
+                ]
+            }
+        </script>
+        <script>
+            // Prefetch internal pages on hover/touch so navigation feels
+            // instant. Chromium handles this natively via the speculation
+            // rules above — this is the fallback for other browsers.
+            (() => {
+                if (HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules")) return;
+                const done = new Set();
+                const canLinkPrefetch = document.createElement("link").relList?.supports?.("prefetch") ?? false;
+                const prefetch = (url) => {
+                    if (done.has(url)) return;
+                    done.add(url);
+                    if (canLinkPrefetch) {
+                        const link = document.createElement("link");
+                        link.rel = "prefetch";
+                        link.href = url;
+                        document.head.appendChild(link);
+                    } else {
+                        fetch(url, { credentials: "same-origin" }).catch(() => {});
+                    }
+                };
+                const internal = (a) => a && a.origin === location.origin && a.pathname !== location.pathname;
+                document.addEventListener("mouseover", (e) => {
+                    const a = e.target.closest?.("a[href]");
+                    if (!internal(a)) return;
+                    const t = setTimeout(() => prefetch(a.href), 65);
+                    a.addEventListener("mouseout", () => clearTimeout(t), { once: true });
+                }, { passive: true });
+                document.addEventListener("touchstart", (e) => {
+                    const a = e.target.closest?.("a[href]");
+                    if (internal(a)) prefetch(a.href);
+                }, { passive: true });
+            })();
+        </script>
         <title>{{ title }} | Poorna's blog</title>
         <link
             rel="icon"
@@ -43,26 +77,7 @@
             property="og:article:author"
             content="Poornachandra Vivekananda"
         />
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "Article",
-                "headline": "{{ title }}",
-                "image": "https://res.cloudinary.com/poorna/image/upload/v1640502671/my-blog/poorna%20blog%20image.png",
-                "datePublished": "{{ date }}",
-                "dateModified": "{{ date }}",
-                "author": [
-                    {
-                        "@type": "Person",
-                        "name": "Poornachandra Vivekananda",
-                        "url": "https://www.poorna.dev",
-                        "honorificPrefix": "Dr"
-                    }
-                ],
-                "description": "{{ description }}",
-                "keywords": "{{ keywords }}"
-            }
-        </script>
+        {% structuredData title, description, image, keywords %}
         <link rel="stylesheet" href="/public/hl/github-dark.min.css" >
     </head>
 
@@ -100,28 +115,30 @@
         </nav>
 
         <div
-            class="bg-indigo-800 py-10 mb-14 flex-col justify-center border-b-8 border-b-indigo-600"
+            class="bg-gradient-to-b from-indigo-900 via-indigo-800 to-indigo-700 py-10 mb-14 flex-col justify-center border-b-8 border-b-indigo-600"
         >
-            <div class="lg:container lg:px-14 px-4 mx-auto">
+            <div class="lg:max-w-3xl px-4 lg:px-0 mx-auto">
                 <div
                     class="flex lg:flex-row flex-col-reverse gap-y-3 lg:justify-between lg:gap-x-4"
                 >
-                    <h1 class="text-5xl font-bold text-slate-100 block my-auto">
+                    <h1
+                        class="text-5xl font-bold tracking-tight text-balance text-slate-100 block my-auto"
+                    >
                         {{ title }}
                     </h1>
                     <p
-                        class="inline-block my-auto text-gray-600 bg-slate-200 px-2 py-1 rounded-md lg:mr-0 mr-auto"
+                        class="inline-block my-auto text-slate-600 bg-slate-200 px-2 py-1 rounded-md lg:mr-0 mr-auto"
                     >
                         {{ level }}
                     </p>
                 </div>
-                <p class="mt-4 text-gray-200">{{ date | toLocaleString }}</p>
+                <p class="mt-4 text-slate-200">{{ date | toLocaleString }}</p>
             </div>
         </div>
 
         <div class="lg:container px-4 mx-auto">
             <article
-                class="prose lg:max-w-4xl lg:prose-lg mx-auto mb-10 prose-blockquote:bg-slate-300 prose-blockquote:border-l-4 prose-blockquote:border-solid prose-blockquote:border-indigo-500 prose-blockquote:py-2 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-base prose-pre:-z-30 prose-h1:text-3xl prose-h2:text-3xl  prose-code:text-sm prose-code:leading-5 prose-pre:bg-[#0d1117] prose-pre:shadow-md prose-code:bg-zinc-300 prose-code:py-2 prose-code:px-2 prose-code:text-zinc-700 "
+                class="prose lg:max-w-3xl lg:prose-lg mx-auto mb-10"
             >
                 {{ content }}
             </article>
@@ -129,7 +146,7 @@
 
         <a
             href="/"
-            class="sticky left-0 bottom-0 text-xl bg-white px-3 py-2 rounded-r-md"
+            class="sticky left-0 bottom-0 text-xl bg-white px-3 py-2 rounded-r-md shadow-md print:hidden"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -148,6 +165,55 @@
             Go back
         </a>
         <script src="/public/hl/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
+        <script>
+            // The local highlight.js bundle only ships bash, shell and
+            // typescript — route js aliases to the TS grammar so those
+            // blocks aren't silently skipped.
+            hljs.registerAliases(["js", "javascript", "jsx", "mjs", "cjs"], {
+                languageName: "typescript",
+            });
+            hljs.highlightAll();
+        </script>
+        <script>
+            // Lightbox: click any article image to view it large. The
+            // overlay <img> reuses the exact same URL as the inline one,
+            // so the browser serves it from cache instead of refetching.
+            (() => {
+                let box;
+                const close = () => {
+                    box.classList.remove("open");
+                    document.body.style.overflow = "";
+                };
+                const open = (img) => {
+                    if (!box) {
+                        box = document.createElement("div");
+                        box.className = "lightbox";
+                        box.innerHTML =
+                            '<button class="lightbox-close" aria-label="Close">&times;</button>' +
+                            "<figure><img><figcaption></figcaption></figure>";
+                        // Anything that isn't the image itself closes:
+                        // backdrop, caption and the × button
+                        box.addEventListener("click", (e) => {
+                            if (e.target.tagName !== "IMG") close();
+                        });
+                        document.body.appendChild(box);
+                    }
+                    const big = box.querySelector("img");
+                    big.src = img.currentSrc || img.src;
+                    big.alt = img.alt;
+                    box.querySelector("figcaption").textContent =
+                        img.closest("figure")?.querySelector("figcaption")?.textContent.trim() || "";
+                    document.body.style.overflow = "hidden";
+                    requestAnimationFrame(() => box.classList.add("open"));
+                };
+                document.querySelector("article").addEventListener("click", (e) => {
+                    const img = e.target.closest("img");
+                    if (img && !img.closest("a")) open(img);
+                });
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape" && box?.classList.contains("open")) close();
+                });
+            })();
+        </script>
     </body>
 </html>

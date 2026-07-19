@@ -8,13 +8,47 @@ permalink: "/"
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-            rel="stylesheet"
-        />
         <link rel="stylesheet" type="text/css" href="/index.css" />
+        <script type="speculationrules">
+            {
+                "prerender": [
+                    { "where": { "href_matches": "/*" }, "eagerness": "moderate" }
+                ]
+            }
+        </script>
+        <script>
+            // Prefetch internal pages on hover/touch so navigation feels
+            // instant. Chromium handles this natively via the speculation
+            // rules above — this is the fallback for other browsers.
+            (() => {
+                if (HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules")) return;
+                const done = new Set();
+                const canLinkPrefetch = document.createElement("link").relList?.supports?.("prefetch") ?? false;
+                const prefetch = (url) => {
+                    if (done.has(url)) return;
+                    done.add(url);
+                    if (canLinkPrefetch) {
+                        const link = document.createElement("link");
+                        link.rel = "prefetch";
+                        link.href = url;
+                        document.head.appendChild(link);
+                    } else {
+                        fetch(url, { credentials: "same-origin" }).catch(() => {});
+                    }
+                };
+                const internal = (a) => a && a.origin === location.origin && a.pathname !== location.pathname;
+                document.addEventListener("mouseover", (e) => {
+                    const a = e.target.closest?.("a[href]");
+                    if (!internal(a)) return;
+                    const t = setTimeout(() => prefetch(a.href), 65);
+                    a.addEventListener("mouseout", () => clearTimeout(t), { once: true });
+                }, { passive: true });
+                document.addEventListener("touchstart", (e) => {
+                    const a = e.target.closest?.("a[href]");
+                    if (internal(a)) prefetch(a.href);
+                }, { passive: true });
+            })();
+        </script>
         <title>Poorna's blog</title>
         <link
             rel="icon"
@@ -49,7 +83,14 @@ permalink: "/"
 
         <style>
             .say-hello {
-                background-image: url("/public/sayhello.svg");
+                /* Topographic art layered over a nav-to-slate gradient so the
+                   header blends out of the indigo nav like the post pages */
+                background-image: url("/public/sayhello.svg"),
+                    linear-gradient(
+                        to bottom,
+                        oklch(35.9% 0.144 278.697) 0%, /* indigo-900 (nav) */
+                        oklch(20.8% 0.042 265.755) 85% /* slate-900 */
+                    );
             }
             .bg-gradient-diagonal-golden {
                 background: linear-gradient(
@@ -63,6 +104,7 @@ permalink: "/"
                 );
             }
         </style>
+        {% structuredDataSite %}
     </head>
 
     <body class="bg-slate-200 font-primary mb-10">
@@ -108,41 +150,45 @@ permalink: "/"
                     Hey there
                 </p>
                 <h1
-                    class="text-6xl font-bold block text-center mx-auto text-slate-200 bg-no-repeat bg-cover bg-clip-text bg-left"
+                    class="text-6xl font-bold tracking-tight block text-center mx-auto text-slate-200 bg-no-repeat bg-cover bg-clip-text bg-left"
                 >
                     I'm Dr.Poorna
                 </h1>
             </div>
         </div>
 
-        <div
-            class="lg:container px-6 mx-auto my-6 flex flex-col gap-y-2 text-xl text-gray-600"
-        >
-            <p>
-                I'm Poornachandra Vivekananda, a medical graduate who's really
-                into healthcare tech. Currently working at
-                <a rel="noopener" href="https://medblocks.org" class="underline"
-                    >Medblocks</a
-                >
-                taking care of Product and Growth while building the future of
-                healhcare interoperability.
-            </p>
-            <p>
-                Previously I've built and led a Web consultancy agency and
-                explored all the web technologies - from AWS to NextJS and
-                Kubernetes. Also was the first employee of a startup called
-                Coverself. If you have anything interesting in healthcare I
-                could work on, you can drop me an email at hey-@-poorna.dev.
-            </p>
-            <p>
-                If you want to know what I have done before and what I can do -
-                you can checkout my LinkedIn, Github or Twitter.
-            </p>
-            <div class="flex flex-row mt-3 space-x-3">
+        <section class="px-5 sm:px-6 my-10 lg:my-12">
+            <div class="mx-auto max-w-2xl lg:max-w-3xl">
+                <p class="text-xl text-slate-800 leading-relaxed">
+                    I'm Poornachandra Vivekananda, a doctor who's been into
+                    healthcare tech since forever. I'm at
+                    <a
+                        rel="noopener"
+                        href="https://medblocks.org"
+                        class="text-indigo-700 font-medium underline underline-offset-2 hover:text-indigo-500"
+                        >Medblocks</a
+                    >, taking care of Product and Growth while we build the
+                    future of healthcare interoperability.
+                </p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+                    Before this, I ran a web consultancy and worked with
+                    everything from AWS to NextJS and Kubernetes. I was also
+                    the first employee at a startup called Coverself. If you
+                    have something interesting in healthcare I could work on,
+                    email me at
+                    <span class="font-medium text-slate-800 whitespace-nowrap"
+                        >hey-@-poorna.dev</span
+                    >.
+                </p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+                    Want to see what I've done and what I can do? Check out my
+                    LinkedIn, GitHub or Twitter.
+                </p>
+                <div class="flex flex-row flex-wrap mt-5 gap-3">
                 <a
                     rel="noopener"
                     href="https://www.linkedin.com/in/poornachandra-v/"
-                    class="flex bg-blue-600 p-3 rounded text-white space-x-3 hover:bg-blue-500"
+                    class="flex items-center gap-x-2 bg-blue-600 px-4 py-2.5 rounded-md text-white hover:bg-blue-500"
                 >
                     <svg
                         class="fill-current text-white block"
@@ -156,12 +202,12 @@ permalink: "/"
                             d="M13 21H9V9H13V11C13.8526 9.91525 15.1456 9.26857 16.525 9.237C19.0056 9.25077 21.0072 11.2694 21 13.75V21H17V14.25C16.84 13.1326 15.8818 12.3036 14.753 12.306C14.2593 12.3216 13.7932 12.5378 13.4624 12.9046C13.1316 13.2715 12.9646 13.7573 13 14.25V21ZM7 21H3V9H7V21ZM5 7C3.89543 7 3 6.10457 3 5C3 3.89543 3.89543 3 5 3C6.10457 3 7 3.89543 7 5C7 5.53043 6.78929 6.03914 6.41421 6.41421C6.03914 6.78929 5.53043 7 5 7Z"
                         ></path>
                     </svg>
-                    <span class="block font-display text-xl">LinkedIn</span>
+                    <span class="block text-base font-medium">LinkedIn</span>
                 </a>
                 <a
                     rel="noopener"
                     href="https://github.com/neutralboy/"
-                    class="flex bg-blue-600 p-3 rounded text-white space-x-3 hover:bg-blue-500"
+                    class="flex items-center gap-x-2 bg-blue-600 px-4 py-2.5 rounded-md text-white hover:bg-blue-500"
                 >
                     <svg
                         class="fill-current text-white block"
@@ -175,55 +221,59 @@ permalink: "/"
                             d="M12.026 2C7.13295 1.99937 2.96183 5.54799 2.17842 10.3779C1.395 15.2079 4.23061 19.893 8.87302 21.439C9.37302 21.529 9.55202 21.222 9.55202 20.958C9.55202 20.721 9.54402 20.093 9.54102 19.258C6.76602 19.858 6.18002 17.92 6.18002 17.92C5.99733 17.317 5.60459 16.7993 5.07302 16.461C4.17302 15.842 5.14202 15.856 5.14202 15.856C5.78269 15.9438 6.34657 16.3235 6.66902 16.884C6.94195 17.3803 7.40177 17.747 7.94632 17.9026C8.49087 18.0583 9.07503 17.99 9.56902 17.713C9.61544 17.207 9.84055 16.7341 10.204 16.379C7.99002 16.128 5.66202 15.272 5.66202 11.449C5.64973 10.4602 6.01691 9.5043 6.68802 8.778C6.38437 7.91731 6.42013 6.97325 6.78802 6.138C6.78802 6.138 7.62502 5.869 9.53002 7.159C11.1639 6.71101 12.8882 6.71101 14.522 7.159C16.428 5.868 17.264 6.138 17.264 6.138C17.6336 6.97286 17.6694 7.91757 17.364 8.778C18.0376 9.50423 18.4045 10.4626 18.388 11.453C18.388 15.286 16.058 16.128 13.836 16.375C14.3153 16.8651 14.5612 17.5373 14.511 18.221C14.511 19.555 14.499 20.631 14.499 20.958C14.499 21.225 14.677 21.535 15.186 21.437C19.8265 19.8884 22.6591 15.203 21.874 10.3743C21.089 5.54565 16.9181 1.99888 12.026 2Z"
                         ></path>
                     </svg>
-                    <span class="block font-display text-xl">GitHub</span>
+                    <span class="block text-base font-medium">GitHub</span>
                 </a>
                 <a
                     rel="noopener"
                     href="https://x.com/poornamentalist"
-                    class="flex bg-blue-600 p-3 rounded text-white space-x-3 hover:bg-blue-500"
+                    class="flex items-center gap-x-2 bg-blue-600 px-4 py-2.5 rounded-md text-white hover:bg-blue-500"
                 >
                     <svg
-                    class="fill-current text-white block"
+                        class="fill-current text-white block"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
                         fill="none"
-                        viewBox="0 0 24 24"
-                        x="0"
-                        y="0"
+                        viewBox="0 0 50 50"
                     >
                         <path
                             d="M 50.0625 10.4375 C 48.214844 11.257813 46.234375 11.808594 44.152344 12.058594 C 46.277344 10.785156 47.910156 8.769531 48.675781 6.371094 C 46.691406 7.546875 44.484375 8.402344 42.144531 8.863281 C 40.269531 6.863281 37.597656 5.617188 34.640625 5.617188 C 28.960938 5.617188 24.355469 10.21875 24.355469 15.898438 C 24.355469 16.703125 24.449219 17.488281 24.625 18.242188 C 16.078125 17.8125 8.503906 13.71875 3.429688 7.496094 C 2.542969 9.019531 2.039063 10.785156 2.039063 12.667969 C 2.039063 16.234375 3.851563 19.382813 6.613281 21.230469 C 4.925781 21.175781 3.339844 20.710938 1.953125 19.941406 C 1.953125 19.984375 1.953125 20.027344 1.953125 20.070313 C 1.953125 25.054688 5.5 29.207031 10.199219 30.15625 C 9.339844 30.390625 8.429688 30.515625 7.492188 30.515625 C 6.828125 30.515625 6.183594 30.453125 5.554688 30.328125 C 6.867188 34.410156 10.664063 37.390625 15.160156 37.472656 C 11.644531 40.230469 7.210938 41.871094 2.390625 41.871094 C 1.558594 41.871094 0.742188 41.824219 -0.0585938 41.726563 C 4.488281 44.648438 9.894531 46.347656 15.703125 46.347656 C 34.617188 46.347656 44.960938 30.679688 44.960938 17.09375 C 44.960938 16.648438 44.949219 16.199219 44.933594 15.761719 C 46.941406 14.3125 48.683594 12.5 50.0625 10.4375 Z"
                         ></path>
                     </svg>
-                    <span class="block font-display text-xl">Twitter</span>
+                    <span class="block text-base font-medium">Twitter</span>
                 </a>
             </div>
-            <p class="mt-3">
+            </div>
+        </section>
+
+        <div class="lg:container px-6 mx-auto mt-12 mb-4">
+            <h2 class="text-2xl tracking-tight text-slate-800">
                 All my musings, thoughts and tech debugging over the years are
                 documented below:
-            </p>
+            </h2>
         </div>
 
-        <div class="lg:container px-6 mx-auto my-10">
-            <div class="grid lg:grid-cols-3 grid-cols-1 gap-3">
+        <div class="lg:container px-6 mx-auto mb-10">
+            <div class="post-masonry">
                 {% for post in collections.blogPosts %}
                 <a
                     href="{{ post.page.url }}"
                     class="shadow-md p-5 rounded-md hover:shadow-lg border-b-4 flex flex-col border-2 {% if post.data.level == 'Opinion' %} bg-gradient-diagonal-golden border-orange-200 hover:border-orange-400 {% else %} bg-slate-50 hover:border-indigo-400 border-indigo-200 {% endif %}"
                 >
                     <div class="lg:flex lg:justify-between lg:gap-x-3">
-                        <p class="text-xl font-medium text-gray-700">
+                        <p class="text-xl font-medium text-slate-700">
                             {{ post.data.title }}
                         </p>
-                        <p class="text-indigo-800 underline">
+                        <p
+                            class="text-sm text-slate-600 bg-slate-200 px-2 py-1 rounded-md h-fit lg:mr-0 mr-auto"
+                        >
                             {{ post.data.level }}
                         </p>
                     </div>
-                    <p class="text-gray-600 mt-auto">
+                    <p class="text-slate-600 mt-auto">
                         {{ post.data.description }}
                     </p>
-                    <p class="mt-1">{{ post.data.date | toLocaleString }}</p>
+                    <p class="mt-1 text-sm text-slate-500">{{ post.data.date | toLocaleString }}</p>
                 </a>
                 {% endfor %}
             </div>
@@ -231,7 +281,7 @@ permalink: "/"
 
         <div class="px-6">
             <div
-                class="lg:container px-6 border border-orange-400 rounded-md text-lg text-gray-700 py-3 mx-auto"
+                class="lg:container px-6 border border-orange-400 rounded-md text-lg text-slate-700 py-3 mx-auto"
             >
                 <p class="text-center">
                     All the opinions on this blog are my own. Rights reserved
