@@ -15,6 +15,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addPassthroughCopy({ "public": "public" });
+  eleventyConfig.addPassthroughCopy("robots.txt");
 
   eleventyConfig.addFilter("toLocaleString", function(date) {
     const dateString = new Date(date);
